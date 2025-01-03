@@ -7,7 +7,6 @@ export default class PreloadScene extends Phaser.Scene {
 
     preload() {
         //load image
-        this.load.path = '../../assets/';
         this.load.atlas('logo', 'images/logo/logo.png', 'images/logo/logo.json');
         this.load.atlas('about', 'images/about/about.png', 'images/about/about.json');
         this.load.atlas('background', 'images/bg/bg.png', 'images/bg/bg.json');

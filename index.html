@@ -1,12 +1,46 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Phaser slot machine demo" />
+    <link rel="apple-touch-icon" href="favicon.png" />
 
-<head>
-  <meta charset="utf-8">
-  <title>Lucky Slot Machine</title>
-  <link rel="shortcut icon" href="./assets/favicon.png">
-  <link rel="stylesheet" href="./assets/css/style.css">  
-</head>
-<body>
-</body>
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="stylesheet" href="src/style.css" />
+
+    <!--
+      GitHub Corners. See https://github.com/remarkablemark/github-corners
+    -->
+    <script
+      src="https://unpkg.com/github-corners/dist/embed.min.js"
+      data-href="https://github.com/remarkablegames/phaser-slot-machine-demo"
+      data-target="_blank"
+      async
+      defer
+    ></script>
+    <style>
+      .github-corner > svg {
+        opacity: 0.5;
+        transition: opacity 0.4s;
+      }
+      .github-corner:hover > svg {
+        opacity: 1;
+      }
+    </style>
+
+    <title>Phaser Slot Machine Demo | remarkablegames</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to play this game.</noscript>
+
+    <script type="module" src="src/index.js"></script>
+  </body>
 </html>
