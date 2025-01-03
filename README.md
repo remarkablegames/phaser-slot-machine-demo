@@ -1,55 +1,70 @@
-# Phaser 3 Webpack Project Template
+<p align="center">
+  <img src="https://github.com/remarkablegames/phaser-slot-machine-demo/blob/master/public/favicon.png" alt="Phaser Slot Machine Demo">
+</p>
 
-A Phaser 3 project template with ES6 support via [Babel 7](https://babeljs.io/) and [Webpack 4](https://webpack.js.org/)
-that includes hot-reloading for development and production-ready builds.
+# Phaser Slot Machine Demo
 
-Loading images via JavaScript module `import` is also supported.
+[![build](https://github.com/remarkablegames/phaser-slot-machine-demo/actions/workflows/build.yml/badge.svg)](https://github.com/remarkablegames/phaser-slot-machine-demo/actions/workflows/build.yml)
 
-## Requirements
+🎰 Phaser Slot Machine Demo.
 
-[Node.js](https://nodejs.org) is required to install dependencies and run scripts via `npm`.
+Play the game on:
 
-## Available Commands
+- [remarkablegames](https://remarkablegames.org/phaser-slot-machine-demo/)
 
-| Command | Description |
-|---------|-------------|
-| `npm install` | Install project dependencies |
-| `npm start` | Build project and open web server running project |
-| `npm run build` | Builds code bundle with production settings (minification, uglification, etc..) |
+## Credits
 
-## Writing Code
+Forked from [luanit96/Slots-Machine-Phaser3](https://github.com/luanit96/Slots-Machine-Phaser3)
 
-After cloning the repo, run `npm install` from your project directory. Then, you can start the local development
-server by running `npm start`.
+## Prerequisites
 
+- [nvm](https://github.com/nvm-sh/nvm#readme)
 
-After starting the development server with `npm start`, you can edit any files in the `src` folder
-and webpack will automatically recompile and reload your server (available at `http://localhost:8080`
-by default).
+## Install
 
-## Customizing Template
+Clone the repository:
 
-### Babel
-You can write modern ES6+ JavaScript and Babel will transpile it to a version of JavaScript that you
-want your project to support. The targeted browsers are set in the `.babelrc` file and the default currently
-targets all browsers with total usage over "0.25%" but excludes IE11 and Opera Mini.
+```sh
+git clone https://github.com/remarkablegames/phaser-slot-machine-demo.git
+cd phaser-slot-machine-demo
+```
 
-  ```
-  "browsers": [
-    ">0.25%",
-    "not ie 11",
-    "not op_mini all"
-  ]
-  ```
+Use the Node.js version:
 
-### Webpack
-If you want to customize your build, such as adding a new webpack loader or plugin (i.e. for loading CSS or fonts), you can
-modify the `webpack/base.js` file for cross-project changes, or you can modify and/or create
-new configuration files and target them in specific npm tasks inside of `package.json'.
+```sh
+nvm use
+```
 
-## Deploying Code
-After you run the `npm run build` command, your code will be built into a single bundle located at 
-`dist/bundle.min.js` along with any other assets you project depended. 
+Install the dependencies:
 
-If you put the contents of the `dist` folder in a publicly-accessible location (say something like `http://mycoolserver.com`), 
-you should be able to open `http://mycoolserver.com/index.html` and play your game.
+```sh
+npm install
+```
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the game in the development mode.
+
+Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+
+The page will reload if you make edits.
+
+You will also see any errors in the console.
+
+### `npm run build`
+
+Builds the game for production to the `dist` folder.
+
+It correctly bundles in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.
+
+Your game is ready to be deployed!
+
+## License
+
+[MIT](LICENSE)
