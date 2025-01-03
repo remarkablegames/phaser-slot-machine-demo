@@ -1,0 +1,42 @@
+name: build
+on: [push, pull_request]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: npm
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline
+
+      - name: Lint commit message
+        run: npx commitlint --from=HEAD~1
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run lint:tsc
+
+      - name: Build
+        run: npm run build -- --base /${{ github.event.repository.name }}/
+
+      - name: Deploy
+        if: github.ref_name == 'master'
+        uses: remarkablemark/gitploy-action@v1
+        with:
+          directory: dist
