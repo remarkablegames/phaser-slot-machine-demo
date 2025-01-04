@@ -17,26 +17,26 @@ import config from '../config';
 import options from '../options';
 
 export class Game extends Phaser.Scene {
-  private audioMusicName = '';
-  private audioSoundName = '';
-
-  public audioObject!: Audio;
-  public autoSpin!: AutoSpin;
-  public baseSpin!: BaseSpin;
-  public btnLine!: Line;
-  public btnMusic!: Sprite;
-  public btnSound!: Sprite;
-  public coin!: Coin;
-  public container!: Container;
-  public container2!: Container;
-  public container3!: Container;
-  public container4!: Container;
-  public container5!: Container;
-  public credits!: Credit;
-  public info!: Info;
-  public maxBet!: Maxbet;
-  public txtMoney!: Phaser.GameObjects.Text;
-  public valueMoney!: number;
+  audioMusicName = '';
+  audioObject!: Audio;
+  audioSoundName = '';
+  autoSpin!: AutoSpin;
+  baseSpin!: BaseSpin;
+  btnLine!: Line;
+  btnMusic!: Sprite;
+  btnSound!: Sprite;
+  coin!: Coin;
+  container!: Container;
+  container2!: Container;
+  container3!: Container;
+  container4!: Container;
+  container5!: Container;
+  credits!: Credit;
+  info!: Info;
+  maxBet!: Maxbet;
+  txtMoney!: Phaser.GameObjects.Text;
+  txtWin!: Phaser.GameObjects.Text;
+  valueMoney!: number;
 
   constructor() {
     super({ key: 'Game' });

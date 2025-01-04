@@ -6,26 +6,24 @@ import type { Game } from '../scenes';
 import { Sprite, Tween } from '.';
 
 export class AutoSpin {
-  private scene: Game;
-  private buttonAuto!: Sprite;
-  private txtAutoSpin!: Phaser.GameObjects.DynamicBitmapText;
-  private txtSpeed!: Phaser.GameObjects.DynamicBitmapText;
-  private txtAuto!: Phaser.GameObjects.Text;
-  private timer!: Phaser.Time.TimerEvent;
-  private bgAuto!: Sprite;
   private auto!: Sprite;
-  private btnPlus!: Sprite;
+  private btnExit!: Sprite;
   private btnMinus!: Sprite;
   private btnPlay!: Sprite;
-  private btnExit!: Sprite;
+  private btnPlus!: Sprite;
+  private scene: Game;
+  private timer!: Phaser.Time.TimerEvent;
   private tweens!: Tween;
+  private txtAuto!: Phaser.GameObjects.Text;
+  private txtAutoSpin: Phaser.GameObjects.DynamicBitmapText;
+  private txtSpeed!: Phaser.GameObjects.DynamicBitmapText;
+  private bgAuto!: Sprite;
+
+  buttonAuto: Sprite;
 
   constructor(scene: Game) {
     this.scene = scene;
-    this.autoSpin();
-  }
 
-  private autoSpin() {
     this.buttonAuto = new Sprite(
       this.scene,
       config.width - 110,

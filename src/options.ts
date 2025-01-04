@@ -1,5 +1,7 @@
 import type Phaser from 'phaser';
 
+import type { Sprite } from './components';
+
 export default {
   money: 100000,
   txtSpin: 'SPIN',
@@ -13,7 +15,7 @@ export default {
   txtLine: 'LINES',
   txtInfo: 'INFO',
   win: 0,
-  lineArray: [],
+  lineArray: [] as Sprite[],
   result: [],
   winningLines: [],
   i: 0,
