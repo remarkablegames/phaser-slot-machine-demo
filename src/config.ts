@@ -1,12 +1,10 @@
-import Phaser from 'phaser';
+import type Phaser from 'phaser';
 
 import Boot from './base_scenes/Boot';
 import Game from './base_scenes/Game';
 import Preload from './base_scenes/Preload';
 
-export default {
-  type: Phaser.WEBGL,
-  parent: 'slot-game-phaser3',
+const config: Phaser.Types.Core.GameConfig = {
   width: 1280,
   height: 720,
   physics: {
@@ -21,3 +19,5 @@ export default {
   },
   scene: [Preload, Boot, Game],
 };
+
+export default config;
