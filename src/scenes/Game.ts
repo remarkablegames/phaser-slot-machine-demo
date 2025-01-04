@@ -13,78 +13,98 @@ import {
   Sprite,
   Time,
 } from '../components';
-import Config from '../config';
-import Options from '../options';
+import config from '../config';
+import options from '../options';
 
 export class Game extends Phaser.Scene {
+  private audioMusicName = '';
+  private audioSoundName = '';
+
+  public audioObject!: Audio;
+  public autoSpin!: AutoSpin;
+  public baseSpin!: BaseSpin;
+  public btnLine!: Line;
+  public btnMusic!: Sprite;
+  public btnSound!: Sprite;
+  public coin!: Coin;
+  public container!: Container;
+  public container2!: Container;
+  public container3!: Container;
+  public container4!: Container;
+  public container5!: Container;
+  public credits!: Credit;
+  public info!: Info;
+  public maxBet!: Maxbet;
+  public txtMoney!: Phaser.GameObjects.Text;
+  public valueMoney!: number;
+
   constructor() {
     super({ key: 'Game' });
   }
 
   create() {
-    //Class Audio
     this.audioObject = new Audio(this);
 
     // bitmap text
-    Options.hsv = Phaser.Display.Color.HSVColorWheel();
+    // @ts-expect-error missing property in <3.60.0-beta.10
+    options.hsv = Phaser.Display.Color.HSVColorWheel();
 
-    //add bg image
     new Sprite(
       this,
-      Config.width / 2,
-      Config.height / 2,
+      config.width / 2,
+      config.height / 2,
       'background',
       'bg.jpg',
     );
 
-    //container
     this.container = new Container(
       this,
-      Config.width - 940,
-      Config.height - 90,
+      config.width - 940,
+      config.height - 90,
     );
 
     this.container2 = new Container(
       this,
-      Config.width - 790,
-      Config.height - 90,
+      config.width - 790,
+      config.height - 90,
     );
 
     this.container3 = new Container(
       this,
-      Config.width - 640,
-      Config.height - 90,
+      config.width - 640,
+      config.height - 90,
     );
 
     this.container4 = new Container(
       this,
-      Config.width - 490,
-      Config.height - 90,
+      config.width - 490,
+      config.height - 90,
     );
 
     this.container5 = new Container(
       this,
-      Config.width - 340,
-      Config.height - 90,
+      config.width - 340,
+      config.height - 90,
     );
 
-    //add image machine
     new Sprite(
       this,
-      Config.width / 2,
-      Config.height / 2,
+      config.width / 2,
+      config.height / 2,
       'background',
       'machine.png',
     );
 
-    this.valueMoney = localStorage.getItem('money')
-      ? localStorage.getItem('money')
-      : Options.money;
+    this.valueMoney = Number(
+      localStorage.getItem('money')
+        ? localStorage.getItem('money')
+        : options.money,
+    );
 
     this.txtMoney = this.add.text(
-      Config.width - 1050,
-      Config.height - 695,
-      this.valueMoney + '$',
+      config.width - 1050,
+      config.height - 695,
+      this.valueMoney.toLocaleString(),
       {
         fontSize: '30px',
         color: '#fff',
@@ -94,13 +114,11 @@ export class Game extends Phaser.Scene {
 
     this.setTextX(this.valueMoney);
 
-    //Class Clock
-    this.times = new Time(this);
+    // clock on top-left
+    new Time(this);
 
-    //Class Credit
     this.credits = new Credit(this);
 
-    //Add sound image
     const musicName = localStorage.getItem('music')
       ? localStorage.getItem('music')
       : 'btn_music_off.png';
@@ -111,16 +129,16 @@ export class Game extends Phaser.Scene {
 
     this.btnMusic = new Sprite(
       this,
-      Config.width - 310,
-      Config.height - 675,
+      config.width - 310,
+      config.height - 675,
       'sound',
       musicName,
     ).setScale(0.6);
 
     this.btnSound = new Sprite(
       this,
-      Config.width - 390,
-      Config.height - 675,
+      config.width - 390,
+      config.height - 675,
       'sound',
       soundName,
     ).setScale(0.6);
@@ -130,69 +148,57 @@ export class Game extends Phaser.Scene {
     this.btnMusic.on('pointerdown', this.onMusic, this);
     this.btnSound.on('pointerdown', this.onSound, this);
 
-    //play audio default
     if (this.audioMusicName === 'btn_music.png') {
       this.audioObject.musicDefault.play();
     }
 
-    //Class Coin
     this.coin = new Coin(this);
-
-    //Class Line
     this.btnLine = new Line(this);
-
-    //Class Maxbet
     this.maxBet = new Maxbet(this);
-
-    //Class Info
     this.info = new Info(this);
-
-    //Class AutoSpin
     this.autoSpin = new AutoSpin(this);
-
-    //Class BaseSpin
     this.baseSpin = new BaseSpin(this);
   }
 
   onMusic() {
-    if (!Options.checkClick) {
+    if (!options.checkClick) {
       if (this.audioMusicName === 'btn_music.png') {
         this.audioMusicName = 'btn_music_off.png';
-        //audio stop
         this.audioObject.musicDefault.stop();
         this.audioObject.audioWin.stop();
       } else {
         this.audioMusicName = 'btn_music.png';
         this.audioPlayButton();
-        //audio play
         this.audioObject.musicDefault.play();
       }
-      //save localstorage
+
       if (localStorage.getItem('musics')) {
         localStorage.removeItem('musics');
         localStorage.setItem('music', this.audioMusicName);
       } else {
         localStorage.setItem('music', this.audioMusicName);
       }
+
       this.btnMusic.setTexture('sound', this.audioMusicName);
     }
   }
 
   onSound() {
-    if (!Options.checkClick) {
+    if (!options.checkClick) {
       if (this.audioSoundName === 'btn_sound.png') {
         this.audioSoundName = 'btn_sound_off.png';
       } else {
         this.audioSoundName = 'btn_sound.png';
         this.audioObject.audioButton.play();
       }
-      //save localstorage
+
       if (localStorage.getItem('sounds')) {
         localStorage.removeItem('sounds');
         localStorage.setItem('sound', this.audioSoundName);
       } else {
         localStorage.setItem('sound', this.audioSoundName);
       }
+
       this.btnSound.setTexture('sound', this.audioSoundName);
     }
   }
@@ -203,28 +209,63 @@ export class Game extends Phaser.Scene {
     }
   }
 
-  setTextX(value) {
-    if (value >= 100000000) this.txtMoney.x = 217;
-    else if (value >= 10000000) this.txtMoney.x = 220;
-    else if (value >= 1000000) this.txtMoney.x = 230;
-    else if (value >= 100000) this.txtMoney.x = 240;
-    else if (value >= 10000) this.txtMoney.x = 240;
-    else if (value >= 1000) this.txtMoney.x = 250;
-    else if (value >= 100) this.txtMoney.x = 260;
-    else if (value >= 10) this.txtMoney.x = 270;
-    else this.txtMoney.x = 280;
+  setTextX(value: number) {
+    switch (true) {
+      case value >= 100000000:
+        this.txtMoney.x = 217;
+        break;
+
+      case value >= 10000000:
+        this.txtMoney.x = 220;
+        break;
+
+      case value >= 1000000:
+        this.txtMoney.x = 230;
+        break;
+
+      case value >= 100000:
+        this.txtMoney.x = 240;
+        break;
+
+      case value >= 10000:
+        this.txtMoney.x = 240;
+        break;
+
+      case value >= 1000:
+        this.txtMoney.x = 250;
+        break;
+
+      case value >= 100:
+        this.txtMoney.x = 260;
+        break;
+
+      case value >= 10:
+        this.txtMoney.x = 270;
+        break;
+
+      default:
+        this.txtMoney.x = 280;
+        break;
+    }
   }
 
-  textCallback(data) {
-    data.tint.topLeft = Options.hsv[Math.floor(Options.i)].color;
-    data.tint.topRight = Options.hsv[359 - Math.floor(Options.i)].color;
-    data.tint.bottomLeft = Options.hsv[359 - Math.floor(Options.i)].color;
-    data.tint.bottomRight = Options.hsv[Math.floor(Options.i)].color;
+  textCallback(data: {
+    tint: {
+      topLeft: number;
+      topRight: number;
+      bottomLeft: number;
+      bottomRight: number;
+    };
+  }) {
+    data.tint.topLeft = options.hsv[Math.floor(options.i)].color;
+    data.tint.topRight = options.hsv[359 - Math.floor(options.i)].color;
+    data.tint.bottomLeft = options.hsv[359 - Math.floor(options.i)].color;
+    data.tint.bottomRight = options.hsv[Math.floor(options.i)].color;
 
-    Options.i += 0.05;
+    options.i += 0.05;
 
-    if (Options.i >= Options.hsv.length) {
-      Options.i = 0;
+    if (options.i >= options.hsv.length) {
+      options.i = 0;
     }
 
     return data;

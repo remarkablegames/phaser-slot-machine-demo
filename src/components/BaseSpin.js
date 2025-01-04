@@ -94,6 +94,6 @@ export class BaseSpin {
     }
     localStorage.setItem('money', this.scene.valueMoney);
     this.scene.setTextX(this.scene.valueMoney);
-    this.scene.txtMoney.setText(this.scene.valueMoney + '$');
+    this.scene.txtMoney.setText(this.scene.valueMoney.toLocaleString());
   }
 }
