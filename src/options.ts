@@ -1,3 +1,5 @@
+import type Phaser from 'phaser';
+
 export default {
   money: 100000,
   txtSpin: 'SPIN',
@@ -15,7 +17,7 @@ export default {
   result: [],
   winningLines: [],
   i: 0,
-  hsv: [],
+  hsv: [] as (Phaser.Types.Display.ColorObject & { color: number })[],
 
   // values symbols0 ==> symbols9
   payvalues: [

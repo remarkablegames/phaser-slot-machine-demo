@@ -2,7 +2,9 @@ import type Phaser from 'phaser';
 
 import { Boot, Game, Preload } from './scenes';
 
-const config: Phaser.Types.Core.GameConfig = {
+type Config = Phaser.Types.Core.GameConfig & { width: number; height: number };
+
+const config: Config = {
   width: 1280,
   height: 720,
   physics: {

@@ -21,16 +21,16 @@ export class Boot extends Phaser.Scene {
 
     new Sprite(
       this,
-      Number(config.width) / 2,
-      Number(config.height) / 2,
+      config.width / 2,
+      config.height / 2,
       'bgPreload',
       'bg_menu.png',
     );
 
     const title = new Sprite(
       this,
-      Number(config.width) / 2,
-      Number(config.height) - 500,
+      config.width / 2,
+      config.height - 500,
       'logo',
       'logo_game.png',
     ).setScale(scaleObject.default);
@@ -52,8 +52,8 @@ export class Boot extends Phaser.Scene {
 
     const button = new Sprite(
       this,
-      Number(config.width) / 2,
-      Number(config.height) - 150,
+      config.width / 2,
+      config.height - 150,
       'bgButtons',
       'btn_play.png',
     ).setScale(0.9);

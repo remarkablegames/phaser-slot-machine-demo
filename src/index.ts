@@ -13,7 +13,7 @@ export default class Game {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
     const windowRatio = windowWidth / windowHeight;
-    const gameRatio = Number(config.width) / Number(config.height);
+    const gameRatio = config.width / config.height;
 
     if (windowRatio < gameRatio) {
       canvas.style.width = windowWidth + 'px';
