@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 
 import Options from '../options';
 
-export default class Container extends Phaser.GameObjects.Container {
+export class Container extends Phaser.GameObjects.Container {
   constructor(scene, x, y) {
     super(scene, x, y);
     scene.add.existing(this);

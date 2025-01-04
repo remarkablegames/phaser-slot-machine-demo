@@ -1,9 +1,8 @@
 import Config from '../config';
 import Options from '../options';
-import Sprite from './Sprite';
-import Tween from './Tween';
+import { Sprite, Tween } from '.';
 
-export default class AutoSpin {
+export class AutoSpin {
   constructor(scene) {
     this.scene = scene;
     this.autoSpin();

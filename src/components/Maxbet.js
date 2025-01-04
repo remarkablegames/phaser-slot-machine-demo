@@ -1,8 +1,8 @@
 import Config from '../config';
 import Options from '../options';
-import Sprite from './Sprite';
-//Class Maxbet
-export default class Maxbet {
+import { Sprite } from '.';
+
+export class Maxbet {
   constructor(scene) {
     this.scene = scene;
     this.addMaxbet();

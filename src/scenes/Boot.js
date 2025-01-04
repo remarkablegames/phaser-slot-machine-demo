@@ -1,7 +1,6 @@
 import Phaser from 'phaser';
 
-import Audio from '../components/Audio';
-import Sprite from '../components/Sprite';
+import { Audio, Sprite } from '../components';
 import Config from '../config';
 
 export class Boot extends Phaser.Scene {

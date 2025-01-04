@@ -1,9 +1,9 @@
 import Phaser from 'phaser';
 
 import Options from '../options';
-import Spin from './Spin';
+import { Spin } from '.';
 
-export default class Tween {
+export class Tween {
   constructor(scene) {
     this.scene = scene;
     this.renderTweens();

@@ -1,8 +1,8 @@
 import Config from '../config';
 import Options from '../options';
-import Sprite from './Sprite';
-//Class Coin
-export default class Coin {
+import { Sprite } from '.';
+
+export class Coin {
   constructor(scene) {
     this.scene = scene;
     this.addCoin();

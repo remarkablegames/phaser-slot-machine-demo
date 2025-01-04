@@ -1,5 +1,4 @@
-//Class Audio
-export default class Audio {
+export class Audio {
   constructor(scene) {
     this.scene = scene;
     this.loadAudio();

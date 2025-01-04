@@ -1,8 +1,8 @@
 import Config from '../config';
 import Options from '../options';
-import Sprite from './Sprite';
-//Class Spin
-export default class Spin {
+import { Sprite } from '.';
+
+export class Spin {
   constructor(scene) {
     this.scene = scene;
     this.printResult();

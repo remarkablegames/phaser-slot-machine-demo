@@ -1,6 +1,6 @@
 import Config from '../config';
-//Class Time
-export default class Time {
+
+export class Time {
   constructor(scene) {
     this.scene = scene;
     this.addTime();

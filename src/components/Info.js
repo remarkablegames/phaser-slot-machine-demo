@@ -1,8 +1,8 @@
 import Config from '../config';
 import Options from '../options';
-import Sprite from './Sprite';
-//Class Info
-export default class Info {
+import { Sprite } from '.';
+
+export class Info {
   constructor(scene) {
     this.scene = scene;
     this.addInfo();

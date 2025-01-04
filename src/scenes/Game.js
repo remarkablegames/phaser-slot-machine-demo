@@ -1,16 +1,18 @@
 import Phaser from 'phaser';
 
-import Audio from '../components/Audio';
-import AutoSpin from '../components/AutoSpin';
-import BaseSpin from '../components/BaseSpin';
-import Coin from '../components/Coin';
-import Container from '../components/Container';
-import Credit from '../components/Credit';
-import Info from '../components/Info';
-import Line from '../components/Line';
-import Maxbet from '../components/Maxbet';
-import Sprite from '../components/Sprite';
-import Time from '../components/Time';
+import {
+  Audio,
+  AutoSpin,
+  BaseSpin,
+  Coin,
+  Container,
+  Credit,
+  Info,
+  Line,
+  Maxbet,
+  Sprite,
+  Time,
+} from '../components';
 import Config from '../config';
 import Options from '../options';
 

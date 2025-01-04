@@ -1,8 +1,8 @@
 import Config from '../config';
 import Options from '../options';
-import Sprite from './Sprite';
-//Class Line
-export default class Line {
+import { Sprite } from '.';
+
+export class Line {
   constructor(scene) {
     this.scene = scene;
     this.addLine();

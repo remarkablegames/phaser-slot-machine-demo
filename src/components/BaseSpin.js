@@ -1,10 +1,8 @@
 import Config from '../config';
 import Options from '../options';
-//import Class
-import Sprite from './Sprite';
-import Tween from './Tween';
-//Class Base Spin
-export default class BaseSpin {
+import { Sprite, Tween } from '.';
+
+export class BaseSpin {
   constructor(scene) {
     this.scene = scene;
     this.addSpin();

@@ -1,7 +1,7 @@
 import Config from '../config';
-import Sprite from './Sprite';
+import { Sprite } from '.';
 
-export default class Credit {
+export class Credit {
   constructor(scene) {
     this.scene = scene;
     this.addCredit();
