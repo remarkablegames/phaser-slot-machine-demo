@@ -1,27 +1,33 @@
-import Config from '../config';
-import Options from '../options';
+import type Phaser from 'phaser';
+
+import config from '../config';
+import options from '../options';
+import type { Game } from '../scenes';
 import { Sprite, Tween } from '.';
 
 export class BaseSpin {
-  constructor(scene) {
-    this.scene = scene;
-    this.addSpin();
-  }
+  private scene: Game;
+  private bgSpin: Sprite;
+  private txtSpin: Phaser.GameObjects.DynamicBitmapText;
+  private tweens!: Tween;
+  private buttonAuto!: Sprite;
 
-  addSpin() {
+  constructor(scene: Game) {
+    this.scene = scene;
+
     this.bgSpin = new Sprite(
       this.scene,
-      Config.width - 275,
-      Config.height - 50,
+      config.width - 275,
+      config.height - 50,
       'bgButtons',
       'btn-spin.png',
     );
-    //text spin
+
     this.txtSpin = this.scene.add.dynamicBitmapText(
-      Config.width - 315,
-      Config.height - 70,
+      config.width - 315,
+      config.height - 70,
       'txt_bitmap',
-      Options.txtSpin,
+      options.txtSpin,
       38,
     );
     this.txtSpin.setDisplayCallback(this.scene.textCallback);
@@ -31,47 +37,41 @@ export class BaseSpin {
 
   playTweens() {
     if (
-      !Options.checkClick &&
-      this.scene.valueMoney >= Options.coin * Options.line &&
-      Options.txtAutoSpin === 'AUTO'
+      !options.checkClick &&
+      this.scene.valueMoney >= options.coin * options.line &&
+      options.txtAutoSpin === 'AUTO'
     ) {
-      //detroy line array
       this.destroyLineArr();
-      //setTint
       this.setColor();
-      Options.checkClick = true;
+      options.checkClick = true;
       this.bgSpin.setScale(0.9);
-      //funtion remove text win
       this.removeTextWin();
-      //save localStorage
       this.saveLocalStorage();
-      //Class Tween
       this.tweens = new Tween(this.scene);
     }
   }
 
   destroyLineArr() {
-    if (Options.lineArray.length > 0) {
-      for (let i = 0; i < Options.lineArray.length; i++) {
-        Options.lineArray[i].destroy();
+    if (options.lineArray.length > 0) {
+      for (let i = 0; i < options.lineArray.length; i++) {
+        options.lineArray[i].destroy();
       }
-      Options.lineArray = [];
+      options.lineArray = [];
     }
   }
 
   removeTextWin() {
-    //play audio button
     this.scene.audioPlayButton();
 
     if (this.scene.audioMusicName === 'btn_music.png') {
-      //stop audio win
       this.scene.audioObject.audioWin.stop();
       this.scene.audioObject.audioReels.play();
     }
-    //set money
-    this.scene.valueMoney -= Options.coin * Options.line;
+
+    // set money
+    this.scene.valueMoney -= options.coin * options.line;
     this.scene.txtMoney.setText(this.scene.valueMoney + '$');
-    //remove text txtwin
+
     if (this.scene.txtWin) {
       this.scene.txtWin.destroy();
     }
@@ -80,8 +80,11 @@ export class BaseSpin {
   setColor() {
     this.bgSpin.setTint(0xa09d9d);
     this.scene.autoSpin.buttonAuto.setTint(0xa09d9d);
+    // @ts-expect-error TODO
     this.scene.maxBet.maxBet.setTint(0xa09d9d);
+    // @ts-expect-error TODO
     this.scene.coin.coin.setTint(0xa09d9d);
+    // @ts-expect-error TODO
     this.scene.btnLine.btnLine.setTint(0xa09d9d);
     this.scene.btnMusic.setTint(0xa09d9d);
     this.scene.btnSound.setTint(0xa09d9d);
@@ -90,9 +93,10 @@ export class BaseSpin {
   saveLocalStorage() {
     if (localStorage.getItem('money')) {
       localStorage.removeItem('money');
-      localStorage.setItem('money', this.scene.valueMoney);
+      localStorage.setItem('money', String(this.scene.valueMoney));
     }
-    localStorage.setItem('money', this.scene.valueMoney);
+
+    localStorage.setItem('money', String(this.scene.valueMoney));
     this.scene.setTextX(this.scene.valueMoney);
     this.scene.txtMoney.setText(this.scene.valueMoney.toLocaleString());
   }
