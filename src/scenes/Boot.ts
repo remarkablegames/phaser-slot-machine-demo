@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 
 import { Audio, Sprite } from '../components';
-import Config from '../config';
+import config from '../config';
 
 export class Boot extends Phaser.Scene {
   constructor() {
@@ -9,7 +9,6 @@ export class Boot extends Phaser.Scene {
   }
 
   create() {
-    //Object scale
     const scaleObject = {
       default: 1.2,
       scale: 1.1,
@@ -17,27 +16,25 @@ export class Boot extends Phaser.Scene {
       scale3: 0.9,
     };
 
-    //Class Audio
-    this.audioObject = new Audio(this);
-    this.audioObject.musicBackgroundDefault.play();
+    const audio = new Audio(this);
+    audio.musicBackgroundDefault.play();
 
     new Sprite(
       this,
-      Config.width / 2,
-      Config.height / 2,
+      Number(config.width) / 2,
+      Number(config.height) / 2,
       'bgPreload',
       'bg_menu.png',
     );
 
     const title = new Sprite(
       this,
-      Config.width / 2,
-      Config.height - 500,
+      Number(config.width) / 2,
+      Number(config.height) - 500,
       'logo',
       'logo_game.png',
     ).setScale(scaleObject.default);
 
-    //timer event loop setScale
     const timer = this.time.addEvent({
       delay: 150,
       callback: () => {
@@ -53,21 +50,18 @@ export class Boot extends Phaser.Scene {
       loop: true,
     });
 
-    this.btn = new Sprite(
+    const button = new Sprite(
       this,
-      Config.width / 2,
-      Config.height - 150,
+      Number(config.width) / 2,
+      Number(config.height) - 150,
       'bgButtons',
       'btn_play.png',
     ).setScale(0.9);
 
-    this.btn.on('pointerdown', () => {
-      //stop audio background Default
-      this.audioObject.musicBackgroundDefault.stop();
-      //remove timer event loop
+    button.on('pointerdown', () => {
+      audio.musicBackgroundDefault.stop();
       timer.remove();
-      //play audio button
-      this.audioObject.audioButton.play();
+      audio.audioButton.play();
       this.scene.start('Game');
     });
   }
