@@ -1,13 +1,13 @@
 import type Phaser from 'phaser';
 
 export class Audio {
-  audioButton: Phaser.Sound.BaseSound;
-  audioLose: Phaser.Sound.BaseSound;
-  audioReelStop: Phaser.Sound.BaseSound;
-  audioReels: Phaser.Sound.BaseSound;
-  audioWin: Phaser.Sound.BaseSound;
-  musicBackgroundDefault: Phaser.Sound.BaseSound;
-  musicDefault: Phaser.Sound.BaseSound;
+  audioButton;
+  audioLose;
+  audioReelStop;
+  audioReels;
+  audioWin;
+  musicBackgroundDefault;
+  musicDefault;
 
   constructor(scene: Phaser.Scene) {
     this.musicBackgroundDefault = scene.sound.add('backgroundDefault', {

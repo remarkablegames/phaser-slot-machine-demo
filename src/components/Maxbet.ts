@@ -7,8 +7,8 @@ export class Maxbet {
   maxBet: Sprite;
 
   private scene;
-  private txtMaxBet;
   private txtCountMaxBet;
+  private txtMaxBet;
 
   constructor(scene: Game) {
     this.scene = scene;

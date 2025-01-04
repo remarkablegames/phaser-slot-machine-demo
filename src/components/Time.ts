@@ -3,7 +3,7 @@ import type Phaser from 'phaser';
 import config from '../config';
 
 export class Time {
-  private time: Phaser.GameObjects.Text;
+  private time;
 
   constructor(scene: Phaser.Scene) {
     this.time = scene.add.text(config.width - 1260, config.height - 700, '', {
