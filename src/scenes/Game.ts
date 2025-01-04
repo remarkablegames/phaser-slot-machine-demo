@@ -119,13 +119,8 @@ export class Game extends Phaser.Scene {
 
     this.credits = new Credit(this);
 
-    const musicName = localStorage.getItem('music')
-      ? localStorage.getItem('music')
-      : 'btn_music_off.png';
-
-    const soundName = localStorage.getItem('sound')
-      ? localStorage.getItem('sound')
-      : 'btn_sound_off.png';
+    const musicName = localStorage.getItem('music') ?? 'btn_music_off.png';
+    const soundName = localStorage.getItem('sound') ?? 'btn_sound_off.png';
 
     this.btnMusic = new Sprite(
       this,
