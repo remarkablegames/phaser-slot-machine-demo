@@ -1,16 +1,14 @@
-import type Phaser from 'phaser';
-
 import config from '../config';
 import options from '../options';
 import type { Game } from '../scenes';
 import { Sprite, Tween } from '.';
 
 export class BaseSpin {
-  private scene: Game;
-  private bgSpin: Sprite;
-  private txtSpin: Phaser.GameObjects.DynamicBitmapText;
-  private tweens!: Tween;
+  private bgSpin;
   private buttonAuto!: Sprite;
+  private scene;
+  private tweens!: Tween;
+  private txtSpin;
 
   constructor(scene: Game) {
     this.scene = scene;
@@ -80,7 +78,6 @@ export class BaseSpin {
   setColor() {
     this.bgSpin.setTint(0xa09d9d);
     this.scene.autoSpin.buttonAuto.setTint(0xa09d9d);
-    // @ts-expect-error TODO
     this.scene.maxBet.maxBet.setTint(0xa09d9d);
     // @ts-expect-error TODO
     this.scene.coin.coin.setTint(0xa09d9d);
