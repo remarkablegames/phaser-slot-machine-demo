@@ -1,8 +1,6 @@
 import type Phaser from 'phaser';
 
-import Boot from './scenes/Boot';
-import Game from './scenes/Game';
-import Preload from './scenes/Preload';
+import { Boot, Game, Preload } from './scenes';
 
 const config: Phaser.Types.Core.GameConfig = {
   width: 1280,

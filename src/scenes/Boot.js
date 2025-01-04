@@ -4,7 +4,7 @@ import Audio from '../base_classes/Audio';
 import Sprite from '../base_classes/Sprite';
 import Config from '../config';
 
-export default class BootScene extends Phaser.Scene {
+export class Boot extends Phaser.Scene {
   constructor() {
     super({ key: 'Boot' });
   }

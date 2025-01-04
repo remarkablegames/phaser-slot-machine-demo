@@ -14,7 +14,7 @@ import Time from '../base_classes/Time';
 import Config from '../config';
 import Options from '../options';
 
-export default class GameScene extends Phaser.Scene {
+export class Game extends Phaser.Scene {
   constructor() {
     super({ key: 'Game' });
   }

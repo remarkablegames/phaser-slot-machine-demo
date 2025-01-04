@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 
 import Config from '../config';
 
-export default class PreloadScene extends Phaser.Scene {
+export class Preload extends Phaser.Scene {
   constructor() {
     super({ key: 'Preload' });
   }
