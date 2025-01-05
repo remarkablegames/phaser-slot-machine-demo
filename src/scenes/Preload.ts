@@ -89,7 +89,8 @@ export class Preload extends Phaser.Scene {
       text: '0%',
       style: {
         font: '30px PT Serif',
-        fill: '#ffffff',
+        // @ts-expect-error Object literal may only specify known properties, and 'fillColor' does not exist in type 'TextStyle'.
+        fill: '#fff',
       },
     });
 

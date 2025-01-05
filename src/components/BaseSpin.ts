@@ -32,11 +32,11 @@ export class BaseSpin {
 
     this.txtSpin.setDisplayCallback(this.scene.textCallback);
 
-    this.bgSpin.on('pointerdown', this.playTweens, this);
+    this.bgSpin.on('pointerdown', this.playTweens);
     this.bgSpin.on('pointerup', () => this.bgSpin.setScale(1));
   }
 
-  playTweens() {
+  playTweens = () => {
     if (
       !options.checkClick &&
       this.scene.valueMoney >= options.coin * options.line &&
@@ -50,7 +50,7 @@ export class BaseSpin {
       this.saveLocalStorage();
       this.tweens = new Tween(this.scene);
     }
-  }
+  };
 
   destroyLineArr() {
     if (options.lineArray.length > 0) {

@@ -46,7 +46,6 @@ export class Game extends Phaser.Scene {
     this.audioObject = new Audio(this);
 
     // bitmap text
-    // @ts-expect-error missing property in <3.60.0-beta.10
     options.hsv = Phaser.Display.Color.HSVColorWheel();
 
     new Sprite(
@@ -244,18 +243,13 @@ export class Game extends Phaser.Scene {
     }
   }
 
-  textCallback(data: {
-    tint: {
-      topLeft: number;
-      topRight: number;
-      bottomLeft: number;
-      bottomRight: number;
-    };
-  }) {
-    data.tint.topLeft = options.hsv[Math.floor(options.i)].color;
-    data.tint.topRight = options.hsv[359 - Math.floor(options.i)].color;
-    data.tint.bottomLeft = options.hsv[359 - Math.floor(options.i)].color;
-    data.tint.bottomRight = options.hsv[Math.floor(options.i)].color;
+  textCallback(
+    display: Phaser.Types.GameObjects.BitmapText.DisplayCallbackConfig,
+  ) {
+    display.tint.topLeft = options.hsv[Math.floor(options.i)].color;
+    display.tint.topRight = options.hsv[359 - Math.floor(options.i)].color;
+    display.tint.bottomLeft = options.hsv[359 - Math.floor(options.i)].color;
+    display.tint.bottomRight = options.hsv[Math.floor(options.i)].color;
 
     options.i += 0.05;
 
@@ -263,6 +257,6 @@ export class Game extends Phaser.Scene {
       options.i = 0;
     }
 
-    return data;
+    return display;
   }
 }

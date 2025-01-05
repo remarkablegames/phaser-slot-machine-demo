@@ -13,7 +13,7 @@
     "start": "vite --open"
   },
   "dependencies": {
-    "phaser": "3.24.1"
+    "phaser": "3.87.0"
   },
   "devDependencies": {
     "@commitlint/cli": "19.6.1",

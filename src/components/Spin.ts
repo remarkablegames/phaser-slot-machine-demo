@@ -12,7 +12,7 @@ export class Spin {
     this.clearColor();
   }
 
-  clearColor() {
+  private clearColor() {
     this.scene.baseSpin.bgSpin.clearTint();
     this.scene.autoSpin.buttonAuto.clearTint();
     this.scene.maxBet.maxBet.clearTint();
@@ -22,7 +22,7 @@ export class Spin {
     this.scene.btnSound.clearTint();
   }
 
-  printResult() {
+  private printResult() {
     interface Target {
       list: {
         frame: {
@@ -64,7 +64,7 @@ export class Spin {
     this.getWinningLines();
   }
 
-  getWinningLines() {
+  private getWinningLines() {
     for (let lineIndex = 0; lineIndex < options.line; lineIndex++) {
       let streak = 0;
       let currentkind = '';
@@ -103,7 +103,7 @@ export class Spin {
     this.resetOptions();
   }
 
-  getLineArray(lineArr: number[]) {
+  private getLineArray(lineArr: number[]) {
     if (!lineArr.length) {
       return;
     }
@@ -121,7 +121,7 @@ export class Spin {
     }
   }
 
-  mathMoney(symbolName: string, streak: number) {
+  private mathMoney(symbolName: string, streak: number) {
     const index = streak - 3;
 
     switch (streak) {
@@ -139,14 +139,14 @@ export class Spin {
     }
   }
 
-  resetOptions() {
+  private resetOptions() {
     options.win = 0;
     options.moneyWin = 0;
     options.result = [];
     options.winningLines = [];
   }
 
-  symbolValue(symbolName: string, index: number) {
+  private symbolValue(symbolName: string, index: number) {
     switch (symbolName) {
       case 'symbols_0.png':
         this.getMoney(options.payvalues[0][index]);
@@ -190,26 +190,26 @@ export class Spin {
     }
   }
 
-  audioPlayWin() {
+  private audioPlayWin() {
     if (this.scene.audioMusicName === 'btn_music.png') {
       this.scene.audioObject.audioWin.play();
     }
   }
 
-  audioPlayLose() {
+  private audioPlayLose() {
     if (this.scene.audioMusicName === 'btn_music.png') {
       this.scene.audioObject.audioLose.play();
     }
   }
 
-  getMoney(money: number) {
+  private getMoney(money: number) {
     const maxBet = options.line * options.coin;
     const payValue = money / options.line;
     options.win += payValue * maxBet;
     this.setTextureWin(options.win);
   }
 
-  setTextureWin(value: number) {
+  private setTextureWin(value: number) {
     options.moneyWin = value;
     this.scene.valueMoney += options.moneyWin;
     const width = this.setTextWidthWin();
@@ -243,7 +243,7 @@ export class Spin {
     this.scene.baseSpin.saveLocalStorage();
   }
 
-  setTextWidthWin() {
+  private setTextWidthWin() {
     switch (true) {
       case options.moneyWin >= 100000:
         return config.width - 340;

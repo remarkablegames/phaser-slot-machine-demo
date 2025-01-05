@@ -13,6 +13,8 @@ export class Tween {
 
   constructor(scene: Game) {
     this.columnTween1 = scene.tweens.add({
+      // https://github.com/phaserjs/phaser/issues/6539#issuecomment-1625628891
+      persist: true,
       targets: scene.container,
       props: {
         y: {
@@ -67,10 +69,11 @@ export class Tween {
     });
 
     this.columnTween2 = scene.tweens.add({
+      persist: true,
       targets: scene.container2,
       props: {
         y: {
-          value: '+=' + options.symbolHeight,
+          value: `+=${options.symbolHeight}`,
           duration: options.duration,
         },
       },
@@ -94,7 +97,7 @@ export class Tween {
           targets: targets[0],
           props: {
             y: {
-              value: '-=' + options.symbolHeight,
+              value: `-=${options.symbolHeight}`,
               duration: options.duration * 2,
             },
           },
@@ -122,6 +125,7 @@ export class Tween {
     });
 
     this.columnTween3 = scene.tweens.add({
+      persist: true,
       targets: scene.container3,
       props: {
         y: {
@@ -177,6 +181,7 @@ export class Tween {
     });
 
     this.columnTween4 = scene.tweens.add({
+      persist: true,
       targets: scene.container4,
       props: {
         y: {
@@ -232,6 +237,7 @@ export class Tween {
     });
 
     this.columnTween5 = scene.tweens.add({
+      persist: true,
       targets: scene.container5,
       props: {
         y: {
