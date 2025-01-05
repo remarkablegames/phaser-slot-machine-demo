@@ -23,30 +23,37 @@ export class Spin {
   }
 
   printResult() {
-    let s1;
-    let s2;
-    let s3;
-    let s4;
-    let s5;
+    interface Target {
+      list: {
+        frame: {
+          name: string;
+        };
+      }[];
+    }
+
+    let s1: Target;
+    let s2: Target;
+    let s3: Target;
+    let s4: Target;
+    let s5: Target;
     const autoSpin = this.scene.autoSpin.tweens;
     const baseSpin = this.scene.baseSpin.tweens;
 
     if (autoSpin) {
-      s1 = autoSpin.columnTween1.targets[0];
-      s2 = autoSpin.columnTween2.targets[0];
-      s3 = autoSpin.columnTween3.targets[0];
-      s4 = autoSpin.columnTween4.targets[0];
-      s5 = autoSpin.columnTween5.targets[0];
+      s1 = autoSpin.columnTween1.targets[0] as Target;
+      s2 = autoSpin.columnTween2.targets[0] as Target;
+      s3 = autoSpin.columnTween3.targets[0] as Target;
+      s4 = autoSpin.columnTween4.targets[0] as Target;
+      s5 = autoSpin.columnTween5.targets[0] as Target;
     } else {
-      s1 = baseSpin.columnTween1.targets[0];
-      s2 = baseSpin.columnTween2.targets[0];
-      s3 = baseSpin.columnTween3.targets[0];
-      s4 = baseSpin.columnTween4.targets[0];
-      s5 = baseSpin.columnTween5.targets[0];
+      s1 = baseSpin.columnTween1.targets[0] as Target;
+      s2 = baseSpin.columnTween2.targets[0] as Target;
+      s3 = baseSpin.columnTween3.targets[0] as Target;
+      s4 = baseSpin.columnTween4.targets[0] as Target;
+      s5 = baseSpin.columnTween5.targets[0] as Target;
     }
 
     options.result.push(
-      // @ts-expect-error TODO
       [s1.list[3].frame.name, s1.list[2].frame.name, s1.list[1].frame.name],
       [s2.list[3].frame.name, s2.list[2].frame.name, s2.list[1].frame.name],
       [s3.list[3].frame.name, s3.list[2].frame.name, s3.list[1].frame.name],
