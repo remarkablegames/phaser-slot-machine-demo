@@ -4,10 +4,10 @@ import type { Game } from '../scenes';
 import { Sprite } from '.';
 
 export class Maxbet {
-  maxBet: Sprite;
+  maxBet;
+  txtCountMaxBet;
 
   private scene;
-  private txtCountMaxBet;
   private txtMaxBet;
 
   constructor(scene: Game) {
@@ -57,8 +57,8 @@ export class Maxbet {
       options.line = 20;
       this.scene.btnLine.txtCountLine.setText(options.line);
       options.coin = 50;
-      this.scene.coin.txtCountCoin.setText(options.coin);
-      this.txtCountMaxBet.setText('BET: ' + options.line * options.coin);
+      this.scene.coin.txtCountCoin.setText(String(options.coin));
+      this.txtCountMaxBet.setText(`BET: ${options.line * options.coin}`);
     }
   };
 }

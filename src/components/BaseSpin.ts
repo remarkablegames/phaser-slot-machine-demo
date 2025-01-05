@@ -28,7 +28,9 @@ export class BaseSpin {
       options.txtSpin,
       38,
     );
+
     this.txtSpin.setDisplayCallback(this.scene.textCallback);
+
     this.bgSpin.on('pointerdown', this.playTweens, this);
     this.bgSpin.on('pointerup', () => this.bgSpin.setScale(1));
   }
@@ -79,7 +81,6 @@ export class BaseSpin {
     this.bgSpin.setTint(0xa09d9d);
     this.scene.autoSpin.buttonAuto.setTint(0xa09d9d);
     this.scene.maxBet.maxBet.setTint(0xa09d9d);
-    // @ts-expect-error TODO
     this.scene.coin.coin.setTint(0xa09d9d);
     // @ts-expect-error TODO
     this.scene.btnLine.btnLine.setTint(0xa09d9d);
