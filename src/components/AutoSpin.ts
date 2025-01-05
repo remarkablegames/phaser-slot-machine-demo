@@ -6,7 +6,7 @@ import type { Game } from '../scenes';
 import { Sprite, Tween } from '.';
 
 export class AutoSpin {
-  buttonAuto: Sprite;
+  buttonAuto;
 
   private auto!: Sprite;
   private bgAuto!: Sprite;

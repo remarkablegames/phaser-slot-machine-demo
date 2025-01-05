@@ -1,47 +1,52 @@
-import Config from '../config';
+import config from '../config';
+import type { Game } from '../scenes';
 import { Sprite } from '.';
 
 export class Credit {
-  constructor(scene) {
-    this.scene = scene;
-    this.addCredit();
-  }
+  private btnExit!: Sprite;
+  private credits;
+  private paylines!: Sprite;
+  private scene;
 
-  addCredit() {
+  constructor(scene: Game) {
+    this.scene = scene;
+
     this.credits = new Sprite(
       this.scene,
-      Config.width - 235,
-      Config.height - 680,
+      config.width - 235,
+      config.height - 680,
       'about',
       'btn-credits.png',
     ).setScale(0.7);
+
     this.credits.on('pointerdown', () => {
-      //play audio button
       this.scene.audioPlayButton();
+
       this.paylines = new Sprite(
         this.scene,
-        Config.width / 2,
-        Config.height / 2,
+        config.width / 2,
+        config.height / 2,
         'about',
         'palines.png',
       ).setDepth(1);
+
       this.btnExit = new Sprite(
         this.scene,
-        Config.width - 30,
-        Config.height - 635,
+        config.width - 30,
+        config.height - 635,
         'bgButtons',
         'btn_exit.png',
       )
         .setScale(0.9)
         .setDepth(1);
-      this.btnExit.on('pointerdown', this.deleteCredit, this);
+
+      this.btnExit.on('pointerdown', this.deleteCredit);
     });
   }
 
-  deleteCredit() {
-    //play audio button
+  deleteCredit = () => {
     this.scene.audioPlayButton();
     this.btnExit.destroy();
     this.paylines.destroy();
-  }
+  };
 }
