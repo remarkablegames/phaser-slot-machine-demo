@@ -16,8 +16,8 @@ export default {
   txtInfo: 'INFO',
   win: 0,
   lineArray: [] as Sprite[],
-  result: [],
-  winningLines: [],
+  result: [] as string[],
+  winningLines: [] as number[],
   i: 0,
   hsv: [] as (Phaser.Types.Display.ColorObject & { color: number })[],
 

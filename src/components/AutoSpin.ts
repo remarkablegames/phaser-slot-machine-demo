@@ -7,6 +7,7 @@ import { Sprite, Tween } from '.';
 
 export class AutoSpin {
   buttonAuto;
+  tweens!: Tween;
 
   private auto!: Sprite;
   private bgAuto!: Sprite;
@@ -16,7 +17,6 @@ export class AutoSpin {
   private btnPlus!: Sprite;
   private scene;
   private timer!: Phaser.Time.TimerEvent;
-  private tweens!: Tween;
   private txtAuto!: Phaser.GameObjects.Text;
   private txtAutoSpin;
   private txtSpeed!: Phaser.GameObjects.DynamicBitmapText;

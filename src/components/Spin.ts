@@ -1,9 +1,12 @@
-import Config from '../config';
-import Options from '../options';
+import config from '../config';
+import options from '../options';
+import type { Game } from '../scenes';
 import { Sprite } from '.';
 
 export class Spin {
-  constructor(scene) {
+  private scene;
+
+  constructor(scene: Game) {
     this.scene = scene;
     this.printResult();
     this.clearColor();
@@ -20,13 +23,14 @@ export class Spin {
   }
 
   printResult() {
-    let s1,
-      s2,
-      s3,
-      s4,
-      s5,
-      autoSpin = this.scene.autoSpin.tweens,
-      baseSpin = this.scene.baseSpin.tweens;
+    let s1;
+    let s2;
+    let s3;
+    let s4;
+    let s5;
+    const autoSpin = this.scene.autoSpin.tweens;
+    const baseSpin = this.scene.baseSpin.tweens;
+
     if (autoSpin) {
       s1 = autoSpin.columnTween1.targets[0];
       s2 = autoSpin.columnTween2.targets[0];
@@ -40,157 +44,174 @@ export class Spin {
       s4 = baseSpin.columnTween4.targets[0];
       s5 = baseSpin.columnTween5.targets[0];
     }
-    //push symbols name
-    Options.result.push(
+
+    options.result.push(
+      // @ts-expect-error TODO
       [s1.list[3].frame.name, s1.list[2].frame.name, s1.list[1].frame.name],
       [s2.list[3].frame.name, s2.list[2].frame.name, s2.list[1].frame.name],
       [s3.list[3].frame.name, s3.list[2].frame.name, s3.list[1].frame.name],
       [s4.list[3].frame.name, s4.list[2].frame.name, s4.list[1].frame.name],
       [s5.list[3].frame.name, s5.list[2].frame.name, s5.list[1].frame.name],
     );
-    //function winning lines
+
     this.getWinningLines();
   }
 
   getWinningLines() {
-    for (let lineIndx = 0; lineIndx < Options.line; lineIndx++) {
+    for (let lineIndex = 0; lineIndex < options.line; lineIndex++) {
       let streak = 0;
-      let currentkind = null;
+      let currentkind = '';
+
       for (
-        let coordIndx = 0;
-        coordIndx < Options.payLines[lineIndx].length;
-        coordIndx++
+        let coordIndex = 0;
+        coordIndex < options.payLines[lineIndex].length;
+        coordIndex++
       ) {
-        let coords = Options.payLines[lineIndx][coordIndx];
-        let symbolAtCoords = Options.result[coords[0]][coords[1]];
-        if (coordIndx === 0) {
+        const coords = options.payLines[lineIndex][coordIndex];
+        const symbolAtCoords = options.result[coords[0]][coords[1]];
+
+        if (coordIndex === 0) {
           currentkind = symbolAtCoords;
           streak = 1;
         } else {
           if (symbolAtCoords != currentkind) {
             break;
           }
+
           streak++;
         }
       }
-      //check streak >= 3
+
       if (streak >= 3) {
-        lineIndx++;
-        Options.winningLines.push(lineIndx);
-        //audio win
+        lineIndex++;
+        options.winningLines.push(lineIndex);
         this.audioPlayWin();
-        //function math money
         this.mathMoney(currentkind, streak);
       }
-      //audio lose
+
       this.audioPlayLose();
     }
-    //get line array
-    this.getLineArray(Options.winningLines);
-    //reset Options
+
+    this.getLineArray(options.winningLines);
     this.resetOptions();
   }
 
-  getLineArray(lineArr) {
+  getLineArray(lineArr: number[]) {
     if (!lineArr.length) {
       return;
     }
+
     for (let i = 0; i < lineArr.length; i++) {
-      let lineName = 'payline_' + lineArr[i] + '.png';
-      Options.lineArray.push(
+      options.lineArray.push(
         new Sprite(
           this.scene,
-          Config.width / 2,
-          Config.height / 2,
+          config.width / 2,
+          config.height / 2,
           'line',
-          lineName,
+          `payline_${lineArr[i]}.png`,
         ),
       );
     }
   }
 
-  mathMoney(symbolName, streak) {
-    let index = streak - 3;
-    if (streak === 3) this.symbolValue(symbolName, index);
-    else if (streak === 4) this.symbolValue(symbolName, index);
-    else this.symbolValue(symbolName, index);
+  mathMoney(symbolName: string, streak: number) {
+    const index = streak - 3;
+
+    switch (streak) {
+      case 3:
+        this.symbolValue(symbolName, index);
+        break;
+
+      case 4:
+        this.symbolValue(symbolName, index);
+        break;
+
+      default:
+        this.symbolValue(symbolName, index);
+        break;
+    }
   }
 
   resetOptions() {
-    //reset win && result
-    Options.win = 0;
-    Options.moneyWin = 0;
-    Options.result = [];
-    Options.winningLines = [];
+    options.win = 0;
+    options.moneyWin = 0;
+    options.result = [];
+    options.winningLines = [];
   }
 
-  symbolValue(symbolName, index) {
+  symbolValue(symbolName: string, index: number) {
     switch (symbolName) {
       case 'symbols_0.png':
-        this.getMoney(Options.payvalues[0][index]);
+        this.getMoney(options.payvalues[0][index]);
         break;
+
       case 'symbols_1.png':
-        this.getMoney(Options.payvalues[1][index]);
+        this.getMoney(options.payvalues[1][index]);
         break;
+
       case 'symbols_2.png':
-        this.getMoney(Options.payvalues[2][index]);
+        this.getMoney(options.payvalues[2][index]);
         break;
+
       case 'symbols_3.png':
-        this.getMoney(Options.payvalues[3][index]);
+        this.getMoney(options.payvalues[3][index]);
         break;
+
       case 'symbols_4.png':
-        this.getMoney(Options.payvalues[4][index]);
+        this.getMoney(options.payvalues[4][index]);
         break;
+
       case 'symbols_5.png':
-        this.getMoney(Options.payvalues[5][index]);
+        this.getMoney(options.payvalues[5][index]);
         break;
+
       case 'symbols_6.png':
-        this.getMoney(Options.payvalues[6][index]);
+        this.getMoney(options.payvalues[6][index]);
         break;
+
       case 'symbols_7.png':
-        this.getMoney(Options.payvalues[7][index]);
+        this.getMoney(options.payvalues[7][index]);
         break;
+
       case 'symbols_8.png':
-        this.getMoney(Options.payvalues[8][index]);
+        this.getMoney(options.payvalues[8][index]);
         break;
+
       default:
-        this.getMoney(Options.payvalues[9][index]);
+        this.getMoney(options.payvalues[9][index]);
         break;
     }
   }
 
   audioPlayWin() {
     if (this.scene.audioMusicName === 'btn_music.png') {
-      //play audio win
       this.scene.audioObject.audioWin.play();
     }
   }
 
   audioPlayLose() {
     if (this.scene.audioMusicName === 'btn_music.png') {
-      //play audio lose
       this.scene.audioObject.audioLose.play();
     }
   }
 
-  getMoney(money) {
-    let maxBet = Options.line * Options.coin;
-    let payValue = money / Options.line;
-    Options.win += payValue * maxBet;
-    this.setTextureWin(Options.win);
+  getMoney(money: number) {
+    const maxBet = options.line * options.coin;
+    const payValue = money / options.line;
+    options.win += payValue * maxBet;
+    this.setTextureWin(options.win);
   }
 
-  setTextureWin(value) {
-    Options.moneyWin = value;
-    this.scene.valueMoney += Options.moneyWin;
-    //function set width text win
-    let width = this.setTextWidthWin();
-    //check empty text win
+  setTextureWin(value: number) {
+    options.moneyWin = value;
+    this.scene.valueMoney += options.moneyWin;
+    const width = this.setTextWidthWin();
+
     if (!this.scene.txtWin) {
       this.scene.txtWin = this.scene.add.text(
         width,
-        Config.height - 130,
-        'WIN: ' + Options.moneyWin + ' $ ',
+        config.height - 130,
+        `WIN: ${options.moneyWin.toLocaleString()}`,
         {
           fontSize: '20px',
           color: '#25a028',
@@ -199,10 +220,11 @@ export class Spin {
       );
     } else {
       this.scene.txtWin.destroy();
+
       this.scene.txtWin = this.scene.add.text(
         width,
-        Config.height - 130,
-        'WIN: ' + Options.moneyWin + ' $ ',
+        config.height - 130,
+        `WIN: ${options.moneyWin.toLocaleString()}`,
         {
           fontSize: '20px',
           color: '#25a028',
@@ -210,17 +232,26 @@ export class Spin {
         },
       );
     }
-    //save localStorage
+
     this.scene.baseSpin.saveLocalStorage();
   }
 
   setTextWidthWin() {
-    let width;
-    if (Options.moneyWin >= 100000) width = Config.width - 340;
-    else if (Options.moneyWin >= 10000) width = Config.width - 335;
-    else if (Options.moneyWin >= 1000) width = Config.width - 330;
-    else if (Options.moneyWin >= 100) width = Config.width - 322;
-    else width = Config.width - 340;
-    return width;
+    switch (true) {
+      case options.moneyWin >= 100000:
+        return config.width - 340;
+
+      case options.moneyWin >= 10000:
+        return config.width - 335;
+
+      case options.moneyWin >= 1000:
+        return config.width - 330;
+
+      case options.moneyWin >= 100:
+        return config.width - 322;
+
+      default:
+        return config.width - 340;
+    }
   }
 }

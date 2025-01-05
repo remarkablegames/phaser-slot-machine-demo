@@ -4,10 +4,11 @@ import type { Game } from '../scenes';
 import { Sprite, Tween } from '.';
 
 export class BaseSpin {
-  private bgSpin;
+  bgSpin;
+  tweens!: Tween;
+
   private buttonAuto!: Sprite;
   private scene;
-  private tweens!: Tween;
   private txtSpin;
 
   constructor(scene: Game) {
