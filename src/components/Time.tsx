@@ -1,16 +1,25 @@
 import type Phaser from 'phaser';
+import { render, Text } from 'phaser-jsx';
 
 import config from '../config';
 
 export class Time {
-  private time;
+  private time!: Phaser.GameObjects.Text;
 
   constructor(scene: Phaser.Scene) {
-    this.time = scene.add.text(config.width - 1260, config.height - 700, '', {
-      fontSize: '20px',
-      color: '#fff',
-      fontFamily: 'PT Serif',
-    });
+    render(
+      <Text
+        x={config.width - 1260}
+        y={config.height - 700}
+        style={{
+          fontSize: '20px',
+          color: '#fff',
+          fontFamily: 'PT Serif',
+        }}
+        ref={(gameObject) => (this.time = gameObject)}
+      />,
+      scene,
+    );
 
     this.callbackTime();
 
