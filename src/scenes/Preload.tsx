@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
+import { render } from 'phaser-jsx';
 
-import config from '../config';
+import { Progress } from '../components';
 
 export class Preload extends Phaser.Scene {
   private progressBar!: Phaser.GameObjects.Graphics;
@@ -12,6 +13,8 @@ export class Preload extends Phaser.Scene {
   }
 
   preload() {
+    render(<Progress />, this);
+
     this.load.atlas('logo', 'images/logo/logo.png', 'images/logo/logo.json');
 
     this.load.atlas(
@@ -73,62 +76,9 @@ export class Preload extends Phaser.Scene {
     this.load.audio('button', 'audio/button.mp3');
     this.load.audio('lose', 'audio/lose.mp3');
     this.load.audio('musicDefault', 'audio/music_default.mp3');
-
-    this.progressBar = this.add.graphics();
-    this.progressBox = this.add.graphics();
-    this.progressBox.fillStyle(0x222222, 0.8);
-    this.progressBox.fillRect(
-      config.width / 2 - 460,
-      config.height / 2 - 90,
-      900,
-      50,
-    );
-
-    this.loadingText = this.make.text({
-      x: config.width / 2,
-      y: config.height / 2 - 5,
-      text: '0%',
-      style: {
-        font: '30px PT Serif',
-        // @ts-expect-error Object literal may only specify known properties, and 'fill' does not exist in type 'TextStyle'.
-        fill: '#fff',
-      },
-    });
-
-    this.loadingText.setOrigin(0.5, 0.5);
-
-    this.load.on('progress', (value: number) => {
-      this.progressBar.clear();
-      this.progressBar.fillStyle(0xff00ff, 1);
-
-      this.progressBar.fillRect(
-        config.width / 2 - 450,
-        config.height / 2 - 80,
-        880 * value,
-        30,
-      );
-
-      this.loadingText.setText(`${Math.floor(value * 100)}%`);
-    });
-
-    this.load.on('complete', this.onComplete);
-
-    for (let i = 0; i < 100; i++) {
-      this.load.atlas(
-        'background' + i,
-        'images/bg/bg.png',
-        'images/bg/bg.json',
-      );
-    }
   }
 
   create() {
     this.scene.start('Boot');
   }
-
-  private onComplete = () => {
-    this.progressBar.destroy();
-    this.progressBox.destroy();
-    this.loadingText.destroy();
-  };
 }

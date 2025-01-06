@@ -7,6 +7,7 @@ export * from './Credit';
 export * from './Info';
 export * from './Line';
 export * from './Maxbet';
+export * from './Progress';
 export * from './Spin';
 export * from './Sprite';
 export * from './Time';

@@ -214,6 +214,8 @@ export class AutoSpin {
 
     this.timer = this.scene.time.addEvent({
       delay: 500,
+      loop: true,
+
       callback: () => {
         // @ts-expect-error Cannot assign to 'delay' because it is a read-only property.
         this.timer.delay = 4500;
@@ -234,7 +236,6 @@ export class AutoSpin {
           this.setTextAuto();
         }
       },
-      loop: true,
     });
   }
 
