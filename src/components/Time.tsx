@@ -1,38 +1,28 @@
-import type Phaser from 'phaser';
-import { render, Text } from 'phaser-jsx';
+import { Text, useScene } from 'phaser-jsx';
 
 import config from '../config';
 
-export class Time {
-  private time!: Phaser.GameObjects.Text;
+export function Time() {
+  const scene = useScene();
 
-  constructor(scene: Phaser.Scene) {
-    render(
-      <Text
-        x={config.width - 1260}
-        y={config.height - 700}
-        style={{
-          fontSize: '20px',
-          color: '#fff',
-          fontFamily: 'PT Serif',
-        }}
-        ref={(gameObject) => (this.time = gameObject)}
-      />,
-      scene,
-    );
-
-    this.callbackTime();
-
-    scene.time.addEvent({
-      delay: 1000,
-      callback: this.callbackTime,
-      loop: true,
-    });
-  }
-
-  private callbackTime = () => {
-    this.time.setText(getTime());
-  };
+  return (
+    <Text
+      x={config.width - 1260}
+      y={config.height - 700}
+      style={{
+        color: '#fff',
+        font: '20px "PT Serif"',
+      }}
+      ref={(gameObject) => {
+        scene.time.addEvent({
+          callback: () => gameObject.setText(getTime()),
+          delay: 1000,
+          loop: true,
+          startAt: 999,
+        });
+      }}
+    />
+  );
 }
 
 function getTime() {

@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { render } from 'phaser-jsx';
 
 import {
   Audio,
@@ -114,7 +115,7 @@ export class Game extends Phaser.Scene {
     this.setTextX(this.valueMoney);
 
     // clock on top-left
-    new Time(this);
+    render(<Time />, this);
 
     this.credits = new Credit(this);
 
