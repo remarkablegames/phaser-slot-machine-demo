@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { render } from 'phaser-jsx';
+import { render, Sprite as PhaserSprite, Text } from 'phaser-jsx';
 
 import {
   Audio,
@@ -27,11 +27,11 @@ export class Game extends Phaser.Scene {
   btnMusic!: Sprite;
   btnSound!: Sprite;
   coin!: Coin;
-  container!: Container;
-  container2!: Container;
-  container3!: Container;
-  container4!: Container;
-  container5!: Container;
+  container!: Phaser.GameObjects.Container;
+  container2!: Phaser.GameObjects.Container;
+  container3!: Phaser.GameObjects.Container;
+  container4!: Phaser.GameObjects.Container;
+  container5!: Phaser.GameObjects.Container;
   credits!: Credit;
   info!: Info;
   maxBet!: Maxbet;
@@ -49,73 +49,76 @@ export class Game extends Phaser.Scene {
     // bitmap text
     options.hsv = Phaser.Display.Color.HSVColorWheel();
 
-    new Sprite(
-      this,
-      config.width / 2,
-      config.height / 2,
-      'background',
-      'bg.jpg',
-    );
-
-    this.container = new Container(
-      this,
-      config.width - 940,
-      config.height - 90,
-    );
-
-    this.container2 = new Container(
-      this,
-      config.width - 790,
-      config.height - 90,
-    );
-
-    this.container3 = new Container(
-      this,
-      config.width - 640,
-      config.height - 90,
-    );
-
-    this.container4 = new Container(
-      this,
-      config.width - 490,
-      config.height - 90,
-    );
-
-    this.container5 = new Container(
-      this,
-      config.width - 340,
-      config.height - 90,
-    );
-
-    new Sprite(
-      this,
-      config.width / 2,
-      config.height / 2,
-      'background',
-      'machine.png',
-    );
-
     this.valueMoney = Number(
       localStorage.getItem('money')
         ? localStorage.getItem('money')
         : options.money,
     );
 
-    this.txtMoney = this.add.text(
-      config.width - 1050,
-      config.height - 695,
-      this.valueMoney.toLocaleString(),
-      {
-        fontSize: '30px',
-        color: '#fff',
-        fontFamily: 'PT Serif',
-      },
+    render(
+      <>
+        <PhaserSprite
+          x={config.width / 2}
+          y={config.height / 2}
+          texture="background"
+          frame="bg.jpg"
+        />
+
+        <Container
+          x={config.width - 940}
+          y={config.height - 90}
+          ref={(gameObject) => (this.container = gameObject)}
+        />
+
+        <Container
+          x={config.width - 790}
+          y={config.height - 90}
+          ref={(gameObject) => (this.container2 = gameObject)}
+        />
+
+        <Container
+          x={config.width - 640}
+          y={config.height - 90}
+          ref={(gameObject) => (this.container3 = gameObject)}
+        />
+
+        <Container
+          x={config.width - 490}
+          y={config.height - 90}
+          ref={(gameObject) => (this.container4 = gameObject)}
+        />
+
+        <Container
+          x={config.width - 340}
+          y={config.height - 90}
+          ref={(gameObject) => (this.container5 = gameObject)}
+        />
+
+        <PhaserSprite
+          x={config.width / 2}
+          y={config.height / 2}
+          texture="background"
+          frame="machine.jpg"
+        />
+
+        <Text
+          x={config.width - 1050}
+          y={config.height - 695}
+          text={this.valueMoney.toLocaleString()}
+          style={{
+            color: '#fff',
+            font: '30px "PT Serif"',
+          }}
+          ref={(gameObject) => {
+            this.txtMoney = gameObject;
+            this.setTextX(this.valueMoney);
+          }}
+        />
+
+        <Time />
+      </>,
+      this,
     );
-
-    this.setTextX(this.valueMoney);
-
-    // clock on top-left
-    render(<Time />, this);
 
     this.credits = new Credit(this);
 
