@@ -15,7 +15,7 @@ export class Tween {
     this.columnTween1 = scene.tweens.add({
       // https://github.com/phaserjs/phaser/issues/6539#issuecomment-1625628891
       persist: true,
-      targets: scene.container,
+      targets: scene.container1,
       props: {
         y: {
           value: `+=${options.symbolHeight}`,

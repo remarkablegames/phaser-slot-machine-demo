@@ -27,7 +27,7 @@ export class Game extends Phaser.Scene {
   btnMusic!: Sprite;
   btnSound!: Sprite;
   coin!: Coin;
-  container!: Phaser.GameObjects.Container;
+  container1!: Phaser.GameObjects.Container;
   container2!: Phaser.GameObjects.Container;
   container3!: Phaser.GameObjects.Container;
   container4!: Phaser.GameObjects.Container;
@@ -67,7 +67,7 @@ export class Game extends Phaser.Scene {
         <Container
           x={config.width - 940}
           y={config.height - 90}
-          ref={(gameObject) => (this.container = gameObject)}
+          ref={(gameObject) => (this.container1 = gameObject)}
         />
 
         <Container
