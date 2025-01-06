@@ -13,6 +13,7 @@ export class Preload extends Phaser.Scene {
 
   preload() {
     this.load.atlas('logo', 'images/logo/logo.png', 'images/logo/logo.json');
+
     this.load.atlas(
       'about',
       'images/about/about.png',
@@ -89,7 +90,7 @@ export class Preload extends Phaser.Scene {
       text: '0%',
       style: {
         font: '30px PT Serif',
-        // @ts-expect-error Object literal may only specify known properties, and 'fillColor' does not exist in type 'TextStyle'.
+        // @ts-expect-error Object literal may only specify known properties, and 'fill' does not exist in type 'TextStyle'.
         fill: '#fff',
       },
     });
@@ -110,7 +111,7 @@ export class Preload extends Phaser.Scene {
       this.loadingText.setText(`${Math.floor(value * 100)}%`);
     });
 
-    this.load.on('complete', this.onComplete, this);
+    this.load.on('complete', this.onComplete);
 
     for (let i = 0; i < 100; i++) {
       this.load.atlas(
@@ -125,9 +126,9 @@ export class Preload extends Phaser.Scene {
     this.scene.start('Boot');
   }
 
-  private onComplete() {
+  private onComplete = () => {
     this.progressBar.destroy();
     this.progressBox.destroy();
     this.loadingText.destroy();
-  }
+  };
 }
