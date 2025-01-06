@@ -10,4 +10,5 @@ export * from './Maxbet';
 export * from './Spin';
 export * from './Sprite';
 export * from './Time';
+export * from './Title';
 export * from './Tween';
