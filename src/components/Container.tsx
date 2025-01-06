@@ -4,38 +4,21 @@ import type { ComponentProps } from 'react';
 
 import options from '../options';
 
+const SYMBOLS_ROWS = 5;
+
 export function Container(props: ComponentProps<typeof PhaserContainer>) {
   return (
     <PhaserContainer {...props}>
-      <Sprite x={0} y={0} texture="symbols" frame={`symbols_${random()}.png`} />
-
-      <Sprite
-        x={0}
-        y={-options.symbolHeight}
-        texture="symbols"
-        frame={`symbols_${random()}.png`}
-      />
-
-      <Sprite
-        x={0}
-        y={-options.symbolHeight * 2}
-        texture="symbols"
-        frame={`symbols_${random()}.png`}
-      />
-
-      <Sprite
-        x={0}
-        y={-options.symbolHeight * 3}
-        texture="symbols"
-        frame={`symbols_${random()}.png`}
-      />
-
-      <Sprite
-        x={0}
-        y={-options.symbolHeight * 4}
-        texture="symbols"
-        frame={`symbols_${random()}.png`}
-      />
+      {Array(SYMBOLS_ROWS)
+        .fill(null)
+        .map((_, index) => (
+          <Sprite
+            x={0}
+            y={-options.symbolHeight * index}
+            texture="symbols"
+            frame={`symbols_${random()}.png`}
+          />
+        ))}
     </PhaserContainer>
   );
 }
