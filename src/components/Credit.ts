@@ -27,7 +27,7 @@ export class Credit {
         config.width / 2,
         config.height / 2,
         'about',
-        'palines.png',
+        'paylines.png',
       ).setDepth(1);
 
       this.btnExit = new Sprite(

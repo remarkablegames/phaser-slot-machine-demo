@@ -98,7 +98,7 @@ export class Game extends Phaser.Scene {
           x={config.width / 2}
           y={config.height / 2}
           texture="background"
-          frame="machine.jpg"
+          frame="machine.png"
         />
 
         <Text
