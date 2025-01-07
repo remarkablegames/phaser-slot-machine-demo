@@ -149,12 +149,12 @@ export class Game extends Phaser.Scene {
       this.audioObject.musicDefault.play();
     }
 
+    this.info = new Info(this);
     this.coin = new Coin(this);
     this.btnLine = new Line(this);
     this.maxBet = new Maxbet(this);
-    this.info = new Info(this);
-    this.autoSpin = new AutoSpin(this);
     this.baseSpin = new BaseSpin(this);
+    this.autoSpin = new AutoSpin(this);
   }
 
   onMusic() {
