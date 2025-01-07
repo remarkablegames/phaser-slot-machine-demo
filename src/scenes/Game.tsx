@@ -32,7 +32,6 @@ export class Game extends Phaser.Scene {
   container3!: Phaser.GameObjects.Container;
   container4!: Phaser.GameObjects.Container;
   container5!: Phaser.GameObjects.Container;
-  credits!: Credit;
   info!: Info;
   maxBet!: Maxbet;
   txtMoney!: Phaser.GameObjects.Text;
@@ -116,11 +115,11 @@ export class Game extends Phaser.Scene {
         />
 
         <Time />
+
+        <Credit />
       </>,
       this,
     );
-
-    this.credits = new Credit(this);
 
     const musicName = localStorage.getItem('music') ?? 'btn_music_off.png';
     const soundName = localStorage.getItem('sound') ?? 'btn_sound_off.png';
