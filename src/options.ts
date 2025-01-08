@@ -1,4 +1,4 @@
-import type Phaser from 'phaser';
+import Phaser from 'phaser';
 
 import type { Sprite } from './components';
 
@@ -19,7 +19,7 @@ export default {
   result: [] as string[][],
   winningLines: [] as number[],
   i: 0,
-  hsv: [] as (Phaser.Types.Display.ColorObject & { color: number })[],
+  hsv: Phaser.Display.Color.HSVColorWheel(),
 
   // values symbols0 ==> symbols9
   payvalues: [
