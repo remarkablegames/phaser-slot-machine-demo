@@ -35,7 +35,7 @@ export class Info {
     this.info.on('pointerdown', this.showPayTable);
   }
 
-  showPayTable = () => {
+  private showPayTable = () => {
     if (!this.click) {
       this.click = true;
       this.scene.audioPlayButton();
@@ -55,7 +55,7 @@ export class Info {
     }
   };
 
-  showTable() {
+  private showTable() {
     this.payValues = [];
 
     this.paytable = new Sprite(
@@ -120,7 +120,7 @@ export class Info {
     }
   }
 
-  deleteTable = () => {
+  private deleteTable = () => {
     this.click = false;
     this.scene.audioPlayButton();
     this.paytable.destroy();

@@ -45,7 +45,7 @@ export class Coin {
     this.coin.on('pointerup', () => this.coin.setScale(1));
   }
 
-  onCoin = () => {
+  private onCoin = () => {
     if (!options.checkClick && options.txtAutoSpin === 'AUTO') {
       this.coin.setScale(0.9);
       this.scene.audioPlayButton();

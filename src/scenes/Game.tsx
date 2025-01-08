@@ -134,7 +134,7 @@ export class Game extends Phaser.Scene {
     this.autoSpin = new AutoSpin(this);
   }
 
-  private onMusic = () => {
+  private onMusic() {
     if (!options.checkClick) {
       if (this.audioMusicName === 'btn_music.png') {
         this.audioMusicName = 'btn_music_off.png';
@@ -155,9 +155,9 @@ export class Game extends Phaser.Scene {
 
       this.btnMusic.setTexture('sound', this.audioMusicName);
     }
-  };
+  }
 
-  private onSound = () => {
+  private onSound() {
     if (!options.checkClick) {
       if (this.audioSoundName === 'btn_sound.png') {
         this.audioSoundName = 'btn_sound_off.png';
@@ -175,7 +175,7 @@ export class Game extends Phaser.Scene {
 
       this.btnSound.setTexture('sound', this.audioSoundName);
     }
-  };
+  }
 
   audioPlayButton() {
     if (this.audioSoundName === 'btn_sound.png') {
