@@ -17,6 +17,8 @@ import {
 import config from '../config';
 import options from '../options';
 
+const CONTAINERS_COUNT = 5;
+
 export class Game extends Phaser.Scene {
   audioMusicName = '';
   audioObject!: Audio;
@@ -63,35 +65,18 @@ export class Game extends Phaser.Scene {
           frame="bg.jpg"
         />
 
-        <Container
-          x={config.width - 940}
-          y={config.height - 90}
-          ref={(gameObject) => (this.container1 = gameObject)}
-        />
-
-        <Container
-          x={config.width - 790}
-          y={config.height - 90}
-          ref={(gameObject) => (this.container2 = gameObject)}
-        />
-
-        <Container
-          x={config.width - 640}
-          y={config.height - 90}
-          ref={(gameObject) => (this.container3 = gameObject)}
-        />
-
-        <Container
-          x={config.width - 490}
-          y={config.height - 90}
-          ref={(gameObject) => (this.container4 = gameObject)}
-        />
-
-        <Container
-          x={config.width - 340}
-          y={config.height - 90}
-          ref={(gameObject) => (this.container5 = gameObject)}
-        />
+        {Array(CONTAINERS_COUNT)
+          .fill(null)
+          .map((_, index) => (
+            <Container
+              x={config.width - 940 + index * 150}
+              y={config.height - 90}
+              ref={(gameObject) =>
+                // @ts-expect-error element implicitly has 'any' type
+                (this[`container${index + 1}`] = gameObject)
+              }
+            />
+          ))}
 
         <PhaserSprite
           x={config.width / 2}
