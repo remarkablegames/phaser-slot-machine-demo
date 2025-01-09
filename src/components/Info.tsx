@@ -4,6 +4,7 @@ import {
   createRef,
   DynamicBitmapText,
   Sprite,
+  Text,
   useScene,
 } from 'phaser-jsx';
 
@@ -14,18 +15,15 @@ import type { Game } from '../scenes';
 export function Info() {
   const scene = useScene<Game>();
   const closeRef = createRef<Phaser.GameObjects.Sprite>();
-  let payValues!: Phaser.GameObjects.Text[];
   const containerRef = createRef<Phaser.GameObjects.Container>();
 
-  function showPayTable() {
+  function toggleModal() {
     scene.audioPlayButton();
-    showTable();
+    containerRef.current?.setToTop().setVisible(!containerRef.current?.visible);
   }
 
-  function showTable() {
-    containerRef.current?.setToTop().setVisible(true);
-    payValues = [];
-
+  function renderTable() {
+    const payValues: Phaser.GameObjects.Text[] = [];
     let width = 190;
     let width2 = width;
     let height = 25;
@@ -37,15 +35,15 @@ export function Info() {
           height2 -= 30;
 
           payValues.push(
-            scene.add.text(
-              width2,
-              config.height / 2 + height2,
-              String(options.payvalues[i][j]),
-              {
+            <Text
+              x={width2}
+              y={config.height / 2 + height2}
+              text={String(options.payvalues[i][j])}
+              style={{
                 color: '#630066',
                 font: '30px "PT Serif"',
-              },
-            ),
+              }}
+            />,
           );
         }
 
@@ -56,15 +54,15 @@ export function Info() {
           height += 30;
 
           payValues.push(
-            scene.add.text(
-              width,
-              config.height / 2 - height,
-              String(options.payvalues[i][j]),
-              {
+            <Text
+              x={width}
+              y={config.height / 2 - height}
+              text={String(options.payvalues[i][j])}
+              style={{
                 color: '#630066',
                 font: '30px "PT Serif"',
-              },
-            ),
+              }}
+            />,
           );
         }
 
@@ -72,17 +70,8 @@ export function Info() {
         height = 25;
       }
     }
-  }
 
-  function hideTable() {
-    containerRef.current?.setVisible(false);
-    scene.audioPlayButton();
-
-    if (payValues.length > 0) {
-      for (let i = 0; i < payValues.length; i++) {
-        payValues[i].destroy();
-      }
-    }
+    return payValues;
   }
 
   return (
@@ -92,7 +81,7 @@ export function Info() {
         y={config.height - 50}
         texture="bgButtons"
         frame="btn-info.png"
-        onPointerDown={showPayTable}
+        onPointerDown={toggleModal}
       />
 
       <DynamicBitmapText
@@ -112,6 +101,8 @@ export function Info() {
           frame="paytable.png"
         />
 
+        {renderTable()}
+
         <Sprite
           x={config.width - 30}
           y={config.height - 635}
@@ -119,7 +110,7 @@ export function Info() {
           frame="btn_exit.png"
           scale={0.9}
           ref={closeRef}
-          onPointerDown={hideTable}
+          onPointerDown={toggleModal}
         />
       </Container>
     </>
