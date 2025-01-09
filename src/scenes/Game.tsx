@@ -27,7 +27,8 @@ export class Game extends Phaser.Scene {
   btnLine!: Line;
   btnMusic!: Phaser.GameObjects.Sprite;
   btnSound!: Phaser.GameObjects.Sprite;
-  coin!: Coin;
+  coin!: Phaser.GameObjects.Sprite;
+  coinText!: Phaser.GameObjects.Text;
   container1!: Phaser.GameObjects.Container;
   container2!: Phaser.GameObjects.Container;
   container3!: Phaser.GameObjects.Container;
@@ -123,11 +124,15 @@ export class Game extends Phaser.Scene {
         />
 
         <Info />
+
+        <Coin
+          coinRef={(gameObject) => (this.coin = gameObject)}
+          coinTextRef={(gameObject) => (this.coinText = gameObject)}
+        />
       </>,
       this,
     );
 
-    this.coin = new Coin(this);
     this.btnLine = new Line(this);
     this.maxBet = new Maxbet(this);
     this.baseSpin = new BaseSpin(this);

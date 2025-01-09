@@ -57,7 +57,7 @@ export class Maxbet {
       options.line = 20;
       this.scene.btnLine.txtCountLine.setText(String(options.line));
       options.coin = 50;
-      this.scene.coin.txtCountCoin.setText(String(options.coin));
+      this.scene.coinText.setText(String(options.coin));
       this.txtCountMaxBet.setText(`BET: ${options.line * options.coin}`);
     }
   };
