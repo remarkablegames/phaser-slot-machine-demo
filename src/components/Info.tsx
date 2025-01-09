@@ -1,5 +1,11 @@
 import Phaser from 'phaser';
-import { createRef, DynamicBitmapText, Sprite, useScene } from 'phaser-jsx';
+import {
+  Container,
+  createRef,
+  DynamicBitmapText,
+  Sprite,
+  useScene,
+} from 'phaser-jsx';
 
 import config from '../config';
 import options from '../options';
@@ -7,23 +13,18 @@ import type { Game } from '../scenes';
 
 export function Info() {
   const scene = useScene<Game>();
-  let click = false;
   const closeRef = createRef<Phaser.GameObjects.Sprite>();
   let payValues!: Phaser.GameObjects.Text[];
-  const paytableRef = createRef<Phaser.GameObjects.Sprite>();
+  const containerRef = createRef<Phaser.GameObjects.Container>();
 
   function showPayTable() {
-    if (!click) {
-      click = true;
-      scene.audioPlayButton();
-      showTable();
-    }
+    scene.audioPlayButton();
+    showTable();
   }
 
   function showTable() {
+    containerRef.current?.setToTop().setVisible(true);
     payValues = [];
-    paytableRef.current?.setToTop().setVisible(true);
-    closeRef.current?.setToTop().setVisible(true);
 
     let width = 190;
     let width2 = width;
@@ -74,10 +75,8 @@ export function Info() {
   }
 
   function hideTable() {
-    click = false;
+    containerRef.current?.setVisible(false);
     scene.audioPlayButton();
-    paytableRef.current?.setVisible(false);
-    closeRef.current?.setVisible(false);
 
     if (payValues.length > 0) {
       for (let i = 0; i < payValues.length; i++) {
@@ -105,25 +104,24 @@ export function Info() {
         ref={(gameObject) => gameObject.setDisplayCallback(scene.textCallback)}
       />
 
-      <Sprite
-        x={config.width / 2}
-        y={config.height / 2}
-        texture="about"
-        frame="paytable.png"
-        visible={false}
-        ref={paytableRef}
-      />
+      <Container visible={false} ref={containerRef}>
+        <Sprite
+          x={config.width / 2}
+          y={config.height / 2}
+          texture="about"
+          frame="paytable.png"
+        />
 
-      <Sprite
-        x={config.width - 30}
-        y={config.height - 635}
-        texture="bgButtons"
-        frame="btn_exit.png"
-        visible={false}
-        scale={0.9}
-        ref={closeRef}
-        onPointerDown={hideTable}
-      />
+        <Sprite
+          x={config.width - 30}
+          y={config.height - 635}
+          texture="bgButtons"
+          frame="btn_exit.png"
+          scale={0.9}
+          ref={closeRef}
+          onPointerDown={hideTable}
+        />
+      </Container>
     </>
   );
 }
