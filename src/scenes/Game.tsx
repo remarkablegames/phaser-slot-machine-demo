@@ -33,7 +33,6 @@ export class Game extends Phaser.Scene {
   container3!: Phaser.GameObjects.Container;
   container4!: Phaser.GameObjects.Container;
   container5!: Phaser.GameObjects.Container;
-  info!: Info;
   maxBet!: Maxbet;
   txtMoney!: Phaser.GameObjects.Text;
   txtWin!: Phaser.GameObjects.Text;
@@ -122,11 +121,12 @@ export class Game extends Phaser.Scene {
           }}
           onPointerDown={this.onSound}
         />
+
+        <Info />
       </>,
       this,
     );
 
-    this.info = new Info(this);
     this.coin = new Coin(this);
     this.btnLine = new Line(this);
     this.maxBet = new Maxbet(this);
