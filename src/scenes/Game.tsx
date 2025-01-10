@@ -24,7 +24,6 @@ export class Game extends Phaser.Scene {
   audioSoundName = '';
   autoSpin!: AutoSpin;
   baseSpin!: BaseSpin;
-  btnLine!: Line;
   btnMusic!: Phaser.GameObjects.Sprite;
   btnSound!: Phaser.GameObjects.Sprite;
   coin!: Phaser.GameObjects.Sprite;
@@ -34,6 +33,8 @@ export class Game extends Phaser.Scene {
   container3!: Phaser.GameObjects.Container;
   container4!: Phaser.GameObjects.Container;
   container5!: Phaser.GameObjects.Container;
+  line!: Phaser.GameObjects.Sprite;
+  lineText!: Phaser.GameObjects.Text;
   maxBet!: Maxbet;
   txtMoney!: Phaser.GameObjects.Text;
   txtWin!: Phaser.GameObjects.Text;
@@ -129,11 +130,15 @@ export class Game extends Phaser.Scene {
           coinRef={(gameObject) => (this.coin = gameObject)}
           coinTextRef={(gameObject) => (this.coinText = gameObject)}
         />
+
+        <Line
+          lineRef={(gameObject) => (this.line = gameObject)}
+          lineTextRef={(gameObject) => (this.lineText = gameObject)}
+        />
       </>,
       this,
     );
 
-    this.btnLine = new Line(this);
     this.maxBet = new Maxbet(this);
     this.baseSpin = new BaseSpin(this);
     this.autoSpin = new AutoSpin(this);

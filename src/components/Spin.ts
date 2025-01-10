@@ -17,7 +17,7 @@ export class Spin {
     this.scene.autoSpin.buttonAuto.clearTint();
     this.scene.maxBet.maxBet.clearTint();
     this.scene.coin.clearTint();
-    this.scene.btnLine.btnLine.clearTint();
+    this.scene.line.clearTint();
     this.scene.btnMusic.clearTint();
     this.scene.btnSound.clearTint();
   }
