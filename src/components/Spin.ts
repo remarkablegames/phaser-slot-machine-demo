@@ -1,4 +1,5 @@
 import config from '../config';
+import { saveLocalStorage } from '../helpers';
 import options from '../options';
 import type { Game } from '../scenes';
 import { Sprite } from '.';
@@ -13,7 +14,7 @@ export class Spin {
   }
 
   private clearColor() {
-    this.scene.baseSpin.bgSpin.clearTint();
+    this.scene.spin.clearTint();
     this.scene.autoSpin.buttonAuto.clearTint();
     this.scene.maxBet.clearTint();
     this.scene.coin.clearTint();
@@ -37,7 +38,7 @@ export class Spin {
     let s4: Target;
     let s5: Target;
     const autoSpin = this.scene.autoSpin.tweens;
-    const baseSpin = this.scene.baseSpin.tweens;
+    const baseSpin = this.scene.spinTweens;
 
     if (autoSpin) {
       s1 = autoSpin.columnTween1.targets[0] as Target;
@@ -240,7 +241,7 @@ export class Spin {
       );
     }
 
-    this.scene.baseSpin.saveLocalStorage();
+    saveLocalStorage(this.scene);
   }
 
   private setTextWidthWin() {

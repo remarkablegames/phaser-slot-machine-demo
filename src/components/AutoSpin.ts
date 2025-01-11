@@ -1,6 +1,12 @@
 import type Phaser from 'phaser';
 
 import config from '../config';
+import {
+  destroyLineArr,
+  removeTextWin,
+  saveLocalStorage,
+  setColor,
+} from '../helpers';
 import options from '../options';
 import type { Game } from '../scenes';
 import { Sprite, Tween } from '.';
@@ -221,11 +227,11 @@ export class AutoSpin {
         this.timer.delay = 4500;
 
         if (speed > 0 && this.scene.valueMoney >= options.coin * options.line) {
-          this.scene.baseSpin.setColor();
+          setColor(this.scene);
           options.checkClick = true;
-          this.scene.baseSpin.destroyLineArr();
-          this.scene.baseSpin.removeTextWin();
-          this.scene.baseSpin.saveLocalStorage();
+          destroyLineArr();
+          removeTextWin(this.scene);
+          saveLocalStorage(this.scene);
           this.tweens = new Tween(this.scene);
           speed--;
           this.txtSpeed.setText(String(speed));

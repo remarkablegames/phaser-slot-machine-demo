@@ -12,6 +12,7 @@ import {
   Line,
   Maxbet,
   Time,
+  Tween,
 } from '../components';
 import config from '../config';
 import options from '../options';
@@ -23,7 +24,6 @@ export class Game extends Phaser.Scene {
   audioObject!: Audio;
   audioSoundName = '';
   autoSpin!: AutoSpin;
-  baseSpin!: BaseSpin;
   btnMusic!: Phaser.GameObjects.Sprite;
   btnSound!: Phaser.GameObjects.Sprite;
   coin!: Phaser.GameObjects.Sprite;
@@ -37,6 +37,8 @@ export class Game extends Phaser.Scene {
   lineText!: Phaser.GameObjects.Text;
   maxBet!: Phaser.GameObjects.Sprite;
   maxBetText!: Phaser.GameObjects.Text;
+  spin!: Phaser.GameObjects.Sprite;
+  spinTweens!: Tween;
   txtMoney!: Phaser.GameObjects.Text;
   txtWin!: Phaser.GameObjects.Text;
   valueMoney = Number(localStorage.getItem('money') ?? options.money);
@@ -141,11 +143,12 @@ export class Game extends Phaser.Scene {
           maxBetRef={(gameObject) => (this.maxBet = gameObject)}
           maxBetTextRef={(gameObject) => (this.maxBetText = gameObject)}
         />
+
+        <BaseSpin spinRef={(gameObject) => (this.spin = gameObject)} />
       </>,
       this,
     );
 
-    this.baseSpin = new BaseSpin(this);
     this.autoSpin = new AutoSpin(this);
   }
 

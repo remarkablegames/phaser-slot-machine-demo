@@ -24,7 +24,7 @@ export function Line(props: Props) {
         frame="btn-line.png"
         ref={(gameObject) => {
           line = gameObject;
-          props.lineRef(line);
+          props.lineRef(gameObject);
         }}
         onPointerDown={() => {
           if (!options.checkClick && options.txtAutoSpin === 'AUTO') {
@@ -64,7 +64,7 @@ export function Line(props: Props) {
         }}
         ref={(gameObject) => {
           lineText = gameObject;
-          props.lineTextRef(lineText);
+          props.lineTextRef(gameObject);
         }}
       />
     </>
