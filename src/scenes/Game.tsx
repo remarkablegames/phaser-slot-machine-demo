@@ -21,7 +21,7 @@ const CONTAINERS_COUNT = 5;
 
 export class Game extends Phaser.Scene {
   audioMusicName = '';
-  audioObject!: Audio;
+  audio!: Audio;
   audioSoundName = '';
   autoSpin!: AutoSpin;
   btnMusic!: Phaser.GameObjects.Sprite;
@@ -48,9 +48,7 @@ export class Game extends Phaser.Scene {
   }
 
   create() {
-    this.audioObject = new Audio(this);
-    const musicName = localStorage.getItem('music') ?? 'btn_music_off.png';
-    const soundName = localStorage.getItem('sound') ?? 'btn_sound_off.png';
+    this.audio = new Audio(this);
 
     render(
       <>
@@ -102,13 +100,13 @@ export class Game extends Phaser.Scene {
           x={config.width - 310}
           y={config.height - 675}
           texture="sound"
-          frame={musicName}
+          frame={localStorage.getItem('music') ?? 'btn_music_off.png'}
           scale={0.6}
           ref={(gameObject) => {
             this.btnMusic = gameObject;
             this.audioMusicName = gameObject.frame.name;
             if (this.audioMusicName === 'btn_music.png') {
-              this.audioObject.musicDefault.play();
+              this.audio.musicDefault.play();
             }
           }}
           onPointerDown={this.onMusic}
@@ -118,7 +116,7 @@ export class Game extends Phaser.Scene {
           x={config.width - 390}
           y={config.height - 675}
           texture="sound"
-          frame={soundName}
+          frame={localStorage.getItem('sound') ?? 'btn_sound_off.png'}
           scale={0.6}
           ref={(gameObject) => {
             this.btnSound = gameObject;
@@ -156,12 +154,12 @@ export class Game extends Phaser.Scene {
     if (!options.checkClick) {
       if (this.audioMusicName === 'btn_music.png') {
         this.audioMusicName = 'btn_music_off.png';
-        this.audioObject.musicDefault.stop();
-        this.audioObject.audioWin.stop();
+        this.audio.musicDefault.stop();
+        this.audio.audioWin.stop();
       } else {
         this.audioMusicName = 'btn_music.png';
         this.audioPlayButton();
-        this.audioObject.musicDefault.play();
+        this.audio.musicDefault.play();
       }
 
       if (localStorage.getItem('musics')) {
@@ -181,7 +179,7 @@ export class Game extends Phaser.Scene {
         this.audioSoundName = 'btn_sound_off.png';
       } else {
         this.audioSoundName = 'btn_sound.png';
-        this.audioObject.audioButton.play();
+        this.audio.audioButton.play();
       }
 
       if (localStorage.getItem('sounds')) {
@@ -197,7 +195,7 @@ export class Game extends Phaser.Scene {
 
   audioPlayButton() {
     if (this.audioSoundName === 'btn_sound.png') {
-      this.audioObject.audioButton.play();
+      this.audio.audioButton.play();
     }
   }
 

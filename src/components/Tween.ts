@@ -60,8 +60,9 @@ export class Tween {
               const symbolsName = targets[0].list[i].frame.name;
               targets[0].list[i].setTexture('symbols', symbolsName);
             }
-            if (targets[0].scene.audioMusicName === 'btn_music.png') {
-              targets[0].scene.audioObject.audioReelStop.play();
+            const scene = targets[0].scene as Game;
+            if (scene.audioMusicName === 'btn_music.png') {
+              scene.audio.audioReelStop.play();
             }
           },
         });
@@ -116,8 +117,9 @@ export class Tween {
               const symbolsName = targets[0].list[i].frame.name;
               targets[0].list[i].setTexture('symbols', symbolsName);
             }
-            if (targets[0].scene.audioMusicName === 'btn_music.png') {
-              targets[0].scene.audioObject.audioReelStop.play();
+            const scene = targets[0].scene as Game;
+            if (scene.audioMusicName === 'btn_music.png') {
+              scene.audio.audioReelStop.play();
             }
           },
         });
@@ -172,8 +174,9 @@ export class Tween {
               const symbolsName = targets[0].list[i].frame.name;
               targets[0].list[i].setTexture('symbols', symbolsName);
             }
-            if (targets[0].scene.audioMusicName === 'btn_music.png') {
-              targets[0].scene.audioObject.audioReelStop.play();
+            const scene = targets[0].scene as Game;
+            if (scene.audioMusicName === 'btn_music.png') {
+              scene.audio.audioReelStop.play();
             }
           },
         });
@@ -228,8 +231,9 @@ export class Tween {
               const symbolsName = targets[0].list[i].frame.name;
               targets[0].list[i].setTexture('symbols', symbolsName);
             }
-            if (targets[0].scene.audioMusicName === 'btn_music.png') {
-              targets[0].scene.audioObject.audioReelStop.play();
+            const scene = targets[0].scene as Game;
+            if (scene.audioMusicName === 'btn_music.png') {
+              scene.audio.audioReelStop.play();
             }
           },
         });
@@ -284,11 +288,12 @@ export class Tween {
               const symbolsName = targets[0].list[i].frame.name;
               targets[0].list[i].setTexture('symbols', symbolsName);
             }
-            if (targets[0].scene.audioMusicName === 'btn_music.png') {
-              targets[0].scene.audioObject.audioReelStop.play();
-              targets[0].scene.audioObject.audioReels.stop();
+            const scene = targets[0].scene as Game;
+            if (scene.audioMusicName === 'btn_music.png') {
+              scene.audio.audioReelStop.play();
+              scene.audio.audioReels.stop();
             }
-            new Spin(targets[0].scene);
+            new Spin(scene);
             options.checkClick = false;
           },
         });

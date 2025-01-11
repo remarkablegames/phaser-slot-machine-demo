@@ -193,13 +193,13 @@ export class Spin {
 
   private audioPlayWin() {
     if (this.scene.audioMusicName === 'btn_music.png') {
-      this.scene.audioObject.audioWin.play();
+      this.scene.audio.audioWin.play();
     }
   }
 
   private audioPlayLose() {
     if (this.scene.audioMusicName === 'btn_music.png') {
-      this.scene.audioObject.audioLose.play();
+      this.scene.audio.audioLose.play();
     }
   }
 

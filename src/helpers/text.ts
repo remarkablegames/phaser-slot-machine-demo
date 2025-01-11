@@ -5,8 +5,8 @@ export function removeTextWin(scene: Game) {
   scene.audioPlayButton();
 
   if (scene.audioMusicName === 'btn_music.png') {
-    scene.audioObject.audioWin.stop();
-    scene.audioObject.audioReels.play();
+    scene.audio.audioWin.stop();
+    scene.audio.audioReels.play();
   }
 
   scene.valueMoney -= options.coin * options.line;
