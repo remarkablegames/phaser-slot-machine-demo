@@ -13,12 +13,12 @@ import options from '../options';
 import type { Game } from '../scenes';
 
 interface Props {
-  spinRef: (gameObject: Phaser.GameObjects.Sprite) => void;
+  baseSpinRef: (gameObject: Phaser.GameObjects.Sprite) => void;
 }
 
 export function BaseSpin(props: Props) {
   const scene = useScene<Game>();
-  let spin!: Phaser.GameObjects.Sprite;
+  let baseSpin!: Phaser.GameObjects.Sprite;
 
   function playTweens() {
     if (
@@ -29,10 +29,10 @@ export function BaseSpin(props: Props) {
       destroyLineArr();
       setColor(scene);
       options.checkClick = true;
-      spin.setScale(0.9);
+      baseSpin.setScale(0.9);
       removeTextWin(scene);
       saveLocalStorage(scene);
-      scene.spinTweens = new Tween(scene);
+      scene.baseSpinTweens = new Tween(scene);
     }
   }
 
@@ -44,10 +44,10 @@ export function BaseSpin(props: Props) {
         texture="bgButtons"
         frame="btn-spin.png"
         onPointerDown={playTweens}
-        onPointerUp={() => spin.setScale(1)}
+        onPointerUp={() => baseSpin.setScale(1)}
         ref={(gameObject) => {
-          spin = gameObject;
-          props.spinRef(gameObject);
+          baseSpin = gameObject;
+          props.baseSpinRef(gameObject);
         }}
       />
 

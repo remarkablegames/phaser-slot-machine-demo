@@ -37,8 +37,8 @@ export class Game extends Phaser.Scene {
   lineText!: Phaser.GameObjects.Text;
   maxBet!: Phaser.GameObjects.Sprite;
   maxBetText!: Phaser.GameObjects.Text;
-  spin!: Phaser.GameObjects.Sprite;
-  spinTweens!: Tween;
+  baseSpin!: Phaser.GameObjects.Sprite;
+  baseSpinTweens!: Tween;
   txtMoney!: Phaser.GameObjects.Text;
   txtWin!: Phaser.GameObjects.Text;
   valueMoney = Number(localStorage.getItem('money') ?? options.money);
@@ -144,7 +144,7 @@ export class Game extends Phaser.Scene {
           maxBetTextRef={(gameObject) => (this.maxBetText = gameObject)}
         />
 
-        <BaseSpin spinRef={(gameObject) => (this.spin = gameObject)} />
+        <BaseSpin baseSpinRef={(gameObject) => (this.baseSpin = gameObject)} />
       </>,
       this,
     );

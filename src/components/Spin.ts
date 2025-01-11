@@ -14,7 +14,7 @@ export class Spin {
   }
 
   private clearColor() {
-    this.scene.spin.clearTint();
+    this.scene.baseSpin.clearTint();
     this.scene.autoSpin.buttonAuto.clearTint();
     this.scene.maxBet.clearTint();
     this.scene.coin.clearTint();
@@ -38,7 +38,7 @@ export class Spin {
     let s4: Target;
     let s5: Target;
     const autoSpin = this.scene.autoSpin.tweens;
-    const baseSpin = this.scene.spinTweens;
+    const baseSpin = this.scene.baseSpinTweens;
 
     if (autoSpin) {
       s1 = autoSpin.columnTween1.targets[0] as Target;
