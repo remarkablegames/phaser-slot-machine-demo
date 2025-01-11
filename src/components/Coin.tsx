@@ -23,15 +23,11 @@ export function Coin(props: Props) {
       if (options.coin < 50) {
         options.coin += 10;
         coinText.setText(String(options.coin));
-        scene.maxBet.txtCountMaxBet.setText(
-          `BET: ${options.coin * options.line}`,
-        );
+        scene.maxBetText.setText(`BET: ${options.coin * options.line}`);
       } else {
         options.coin = 10;
         coinText.setText(String(options.coin));
-        scene.maxBet.txtCountMaxBet.setText(
-          `BET: ${options.coin * options.line}`,
-        );
+        scene.maxBetText.setText(`BET: ${options.coin * options.line}`);
       }
     }
   }

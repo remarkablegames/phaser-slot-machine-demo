@@ -81,7 +81,7 @@ export class BaseSpin {
   setColor() {
     this.bgSpin.setTint(0xa09d9d);
     this.scene.autoSpin.buttonAuto.setTint(0xa09d9d);
-    this.scene.maxBet.maxBet.setTint(0xa09d9d);
+    this.scene.maxBet.setTint(0xa09d9d);
     this.scene.coin.setTint(0xa09d9d);
     this.scene.line.setTint(0xa09d9d);
     this.scene.btnMusic.setTint(0xa09d9d);

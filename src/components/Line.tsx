@@ -34,15 +34,11 @@ export function Line(props: Props) {
             if (options.line < 20) {
               options.line++;
               lineText.setText(String(options.line));
-              scene.maxBet.txtCountMaxBet.setText(
-                `BET: ${options.line * options.coin}`,
-              );
+              scene.maxBetText.setText(`BET: ${options.line * options.coin}`);
             } else {
               options.line = 1;
               lineText.setText(String(options.line));
-              scene.maxBet.txtCountMaxBet.setText(
-                `BET: ${options.line * options.coin}`,
-              );
+              scene.maxBetText.setText(`BET: ${options.line * options.coin}`);
             }
           }
         }}
