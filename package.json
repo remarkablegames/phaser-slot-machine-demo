@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "phaser": "3.87.0",
-    "phaser-jsx": "0.12.6"
+    "phaser-jsx": "0.13.6"
   },
   "devDependencies": {
     "@commitlint/cli": "19.6.1",
