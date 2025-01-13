@@ -1,13 +1,13 @@
 import Phaser from 'phaser';
-import { Container, createRef, Sprite, useScene } from 'phaser-jsx';
+import { Container, Sprite, useRef, useScene } from 'phaser-jsx';
 
 import config from '../config';
 import type { Game } from '../scenes';
 
 export function Credit() {
   const scene = useScene<Game>();
-  const closeRef = createRef<Phaser.GameObjects.Sprite>();
-  const containerRef = createRef<Phaser.GameObjects.Container>();
+  const closeRef = useRef<Phaser.GameObjects.Sprite>();
+  const containerRef = useRef<Phaser.GameObjects.Container>();
 
   function toggleModal() {
     scene.audioPlayButton();

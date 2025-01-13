@@ -1,5 +1,5 @@
 import type Phaser from 'phaser';
-import { createRef, Sprite, useScene } from 'phaser-jsx';
+import { Sprite, useRef, useScene } from 'phaser-jsx';
 
 import type { Audio } from '../components';
 import config from '../config';
@@ -16,8 +16,8 @@ interface Props {
 }
 
 export function Title(props: Props) {
-  const buttonRef = createRef<Phaser.GameObjects.Sprite>();
-  const titleRef = createRef<Phaser.GameObjects.Sprite>();
+  const buttonRef = useRef<Phaser.GameObjects.Sprite>();
+  const titleRef = useRef<Phaser.GameObjects.Sprite>();
   const scene = useScene();
 
   const timer = scene.time.addEvent({

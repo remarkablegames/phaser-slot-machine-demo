@@ -1,10 +1,10 @@
 import Phaser from 'phaser';
 import {
   Container,
-  createRef,
   DynamicBitmapText,
   Sprite,
   Text,
+  useRef,
   useScene,
 } from 'phaser-jsx';
 
@@ -14,8 +14,8 @@ import type { Game } from '../scenes';
 
 export function Info() {
   const scene = useScene<Game>();
-  const closeRef = createRef<Phaser.GameObjects.Sprite>();
-  const containerRef = createRef<Phaser.GameObjects.Container>();
+  const closeRef = useRef<Phaser.GameObjects.Sprite>();
+  const containerRef = useRef<Phaser.GameObjects.Container>();
 
   function toggleModal() {
     scene.audioPlayButton();
