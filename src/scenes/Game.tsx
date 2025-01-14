@@ -23,7 +23,7 @@ export class Game extends Phaser.Scene {
   audioMusicName = '';
   audio!: Audio;
   audioSoundName = '';
-  autoSpin!: AutoSpin;
+  autoSpin!: Phaser.GameObjects.Sprite;
   btnMusic!: Phaser.GameObjects.Sprite;
   btnSound!: Phaser.GameObjects.Sprite;
   coin!: Phaser.GameObjects.Sprite;
@@ -39,6 +39,7 @@ export class Game extends Phaser.Scene {
   maxBetText!: Phaser.GameObjects.Text;
   baseSpin!: Phaser.GameObjects.Sprite;
   baseSpinTweens!: Tween;
+  autoSpinTweens!: Tween;
   txtMoney!: Phaser.GameObjects.Text;
   txtWin!: Phaser.GameObjects.Text;
   valueMoney = Number(localStorage.getItem('money') ?? options.money);
@@ -143,11 +144,10 @@ export class Game extends Phaser.Scene {
         />
 
         <BaseSpin baseSpinRef={(gameObject) => (this.baseSpin = gameObject)} />
+        <AutoSpin autoSpinRef={(gameObject) => (this.autoSpin = gameObject)} />
       </>,
       this,
     );
-
-    this.autoSpin = new AutoSpin(this);
   }
 
   private onMusic() {

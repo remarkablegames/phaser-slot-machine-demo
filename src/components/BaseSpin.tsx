@@ -46,8 +46,8 @@ export function BaseSpin(props: Props) {
         onPointerDown={playTweens}
         onPointerUp={() => baseSpin.setScale(1)}
         ref={(gameObject) => {
-          baseSpin = gameObject;
           props.baseSpinRef(gameObject);
+          baseSpin = gameObject;
         }}
       />
 

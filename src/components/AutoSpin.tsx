@@ -1,4 +1,12 @@
-import type Phaser from 'phaser';
+import Phaser from 'phaser';
+import {
+  Container,
+  DynamicBitmapText,
+  Sprite,
+  Text,
+  useRef,
+  useScene,
+} from 'phaser-jsx';
 
 import config from '../config';
 import {
@@ -9,206 +17,55 @@ import {
 } from '../helpers';
 import options from '../options';
 import type { Game } from '../scenes';
-import { Sprite, Tween } from '.';
+import { Tween } from '.';
 
-export class AutoSpin {
-  buttonAuto;
-  tweens!: Tween;
+interface Props {
+  autoSpinRef: (gameObject: Phaser.GameObjects.Sprite) => void;
+}
 
-  private auto!: Sprite;
-  private bgAuto!: Sprite;
-  private btnExit!: Sprite;
-  private btnMinus!: Sprite;
-  private btnPlay!: Sprite;
-  private btnPlus!: Sprite;
-  private scene;
-  private timer!: Phaser.Time.TimerEvent;
-  private txtAuto!: Phaser.GameObjects.Text;
-  private txtAutoSpin;
-  private txtSpeed!: Phaser.GameObjects.DynamicBitmapText;
+export function AutoSpin(props: Props) {
+  const scene = useScene<Game>();
+  const containerRef = useRef<Phaser.GameObjects.Container>();
 
-  constructor(scene: Game) {
-    this.scene = scene;
+  let buttonAuto: Phaser.GameObjects.Sprite;
+  let txtAutoSpin: Phaser.GameObjects.DynamicBitmapText;
+  let btnMinus: Phaser.GameObjects.Sprite;
+  let btnPlus: Phaser.GameObjects.Sprite;
+  let timer: Phaser.Time.TimerEvent;
+  let txtAuto: Phaser.GameObjects.Text;
+  let txtSpeed: Phaser.GameObjects.DynamicBitmapText;
 
-    this.buttonAuto = new Sprite(
-      this.scene,
-      config.width - 110,
-      config.height - 50,
-      'bgButtons',
-      'btn-info.png',
-    );
-
-    this.txtAutoSpin = this.scene.add.dynamicBitmapText(
-      config.width - 155,
-      config.height - 70,
-      'txt_bitmap',
-      options.txtAutoSpin,
-      38,
-    );
-
-    this.txtAutoSpin.setDisplayCallback(this.scene.textCallback);
-
-    this.buttonAuto.on('pointerdown', () => {
-      if (!options.checkClick) {
-        this.buttonAuto.setScale(0.9);
-        this.playSpeedAuto();
-      }
-    });
-
-    this.buttonAuto.on('pointerup', () => this.buttonAuto.setScale(1));
+  function toggleModal() {
+    const container = containerRef.current!;
+    container.setToTop().setVisible(!container.visible);
   }
 
-  private playSpeedAuto() {
+  function playSpeedAuto() {
     if (options.txtAutoSpin === 'STOP') {
       options.txtAutoSpin = 'AUTO';
-      this.txtAutoSpin.setText(options.txtAutoSpin);
+      txtAutoSpin.setText(options.txtAutoSpin);
 
-      if (this.txtSpeed && this.timer) {
-        this.txtSpeed.destroy();
-        this.timer.remove();
+      if (txtSpeed && timer) {
+        txtSpeed.destroy();
+        timer.remove();
       }
     } else {
       options.txtAutoSpin = 'STOP';
-      this.txtAutoSpin.setText(options.txtAutoSpin);
-      this.scene.audioPlayButton();
+      txtAutoSpin.setText(options.txtAutoSpin);
+      scene.audioPlayButton();
 
-      this.bgAuto = new Sprite(
-        this.scene,
-        config.width / 2,
-        config.height / 2,
-        'autoSpin',
-        'bg_auto.png',
-      );
-
-      this.auto = new Sprite(
-        this.scene,
-        config.width / 2,
-        config.height / 2 - 100,
-        'bgButtons',
-        'btn-spin.png',
-      );
-
-      this.txtAuto = this.scene.add.text(
-        config.width / 2 - 5,
-        config.height / 2 - 115,
-        String(options.txtAuto),
-        { fontSize: '35px', color: '#fff', fontFamily: 'PT Serif' },
-      );
-
-      this.setXAuto();
-      this.plus();
-      this.minus();
-      this.play();
-      this.exit();
+      setXAuto();
+      toggleModal();
     }
-  }
-
-  private plus() {
-    this.btnPlus = new Sprite(
-      this.scene,
-      config.width / 2 - 100,
-      config.height / 2 - 100,
-      'autoSpin',
-      'btn_plus_bet.png',
-    );
-
-    this.btnPlus.on('pointerdown', () => {
-      this.scene.audioPlayButton();
-
-      if (options.txtAuto < 100) {
-        this.btnMinus.clearTint();
-        this.btnPlus.setScale(0.9);
-        options.txtAuto += 5;
-
-        if (options.txtAuto < 100) {
-          this.txtAuto.x = 620;
-        } else {
-          this.txtAuto.x = 610;
-        }
-
-        this.txtAuto.setText(String(options.txtAuto));
-      }
-
-      if (options.txtAuto === 100) {
-        this.btnPlus.setTint(0xa09d9d);
-      }
-    });
-
-    this.btnPlus.on('pointerup', () => this.btnPlus.setScale(1));
-  }
-
-  private minus() {
-    this.btnMinus = new Sprite(
-      this.scene,
-      config.width / 2 + 100,
-      config.height / 2 - 100,
-      'autoSpin',
-      'btn_minus_bet.png',
-    );
-
-    this.btnMinus.on('pointerdown', () => {
-      this.scene.audioPlayButton();
-
-      if (options.txtAuto > 5) {
-        this.btnPlus.clearTint();
-        this.btnMinus.setScale(0.9);
-        options.txtAuto -= 5;
-        this.setXAuto();
-        this.txtAuto.setText(String(options.txtAuto));
-      }
-
-      if (options.txtAuto === 5) {
-        this.btnMinus.setTint(0xa09d9d);
-      }
-    });
-
-    this.btnMinus.on('pointerup', () => this.btnMinus.setScale(1));
-  }
-
-  private play() {
-    this.btnPlay = new Sprite(
-      this.scene,
-      config.width / 2,
-      config.height / 2 + 100,
-      'bgButtons',
-      'btn_play.png',
-    ).setScale(0.9);
-
-    this.btnPlay.on('pointerdown', () => {
-      this.scene.audioPlayButton();
-      this.removeImgAuto();
-
-      if (this.scene.valueMoney >= options.coin * options.line) {
-        this.speedPlay(options.txtAuto);
-      } else {
-        this.setTextAuto();
-      }
-    });
-  }
-
-  private exit() {
-    this.btnExit = new Sprite(
-      this.scene,
-      config.width - 30,
-      config.height - 635,
-      'bgButtons',
-      'btn_exit.png',
-    ).setScale(0.9);
-
-    this.btnExit.on('pointerdown', () => {
-      this.scene.audioPlayButton();
-      this.removeImgAuto();
-      this.setTextAuto();
-    });
   }
 
   /**
    * Set text speed.
    */
-  private speedPlay(speed: number) {
+  function speedPlay(speed: number) {
     const width = speed > 5 ? config.width - 150 : config.width - 130;
 
-    this.txtSpeed = this.scene.add.dynamicBitmapText(
+    txtSpeed = scene.add.dynamicBitmapText(
       width,
       config.height / 2 - 350,
       'txt_bitmap',
@@ -216,63 +73,196 @@ export class AutoSpin {
       80,
     );
 
-    this.txtSpeed.setDisplayCallback(this.scene.textCallback);
+    txtSpeed.setDisplayCallback(scene.textCallback);
 
-    this.timer = this.scene.time.addEvent({
+    timer = scene.time.addEvent({
       delay: 500,
       loop: true,
 
       callback: () => {
         // @ts-expect-error Cannot assign to 'delay' because it is a read-only property.
-        this.timer.delay = 4500;
+        timer.delay = 4500;
 
-        if (speed > 0 && this.scene.valueMoney >= options.coin * options.line) {
-          setColor(this.scene);
+        if (speed > 0 && scene.valueMoney >= options.coin * options.line) {
+          setColor(scene);
           options.checkClick = true;
           destroyLineArr();
-          removeTextWin(this.scene);
-          saveLocalStorage(this.scene);
-          this.tweens = new Tween(this.scene);
+          removeTextWin(scene);
+          saveLocalStorage(scene);
+          scene.autoSpinTweens = new Tween(scene);
           speed--;
-          this.txtSpeed.setText(String(speed));
+          txtSpeed.setText(String(speed));
         } else {
           options.checkClick = false;
-          this.timer.remove(false);
-          this.txtSpeed.destroy();
-          this.setTextAuto();
+          timer.remove(false);
+          txtSpeed.destroy();
+          setTextAuto();
         }
       },
     });
   }
 
-  private setTextAuto() {
+  function setTextAuto() {
     options.txtAutoSpin = 'AUTO';
-    this.txtAutoSpin.setText(options.txtAutoSpin);
+    txtAutoSpin.setText(options.txtAutoSpin);
   }
 
-  private setXAuto() {
+  function setXAuto() {
     switch (true) {
       case options.txtAuto >= 100:
-        this.txtAuto.x = 610;
+        txtAuto.x = 610;
         break;
 
       case options.txtAuto >= 10:
-        this.txtAuto.x = 620;
+        txtAuto.x = 620;
         break;
 
       default:
-        this.txtAuto.x = 635;
+        txtAuto.x = 635;
         break;
     }
   }
 
-  private removeImgAuto() {
-    this.bgAuto.destroy();
-    this.btnPlus.destroy();
-    this.btnMinus.destroy();
-    this.auto.destroy();
-    this.txtAuto.destroy();
-    this.btnPlay.destroy();
-    this.btnExit.destroy();
-  }
+  return (
+    <>
+      <Sprite
+        x={config.width - 110}
+        y={config.height - 50}
+        texture="bgButtons"
+        frame="btn-info.png"
+        onPointerDown={() => {
+          if (!options.checkClick) {
+            buttonAuto.setScale(0.9);
+            playSpeedAuto();
+          }
+        }}
+        onPointerUp={() => buttonAuto.setScale(1)}
+        ref={(gameObject) => {
+          props.autoSpinRef(gameObject);
+          buttonAuto = gameObject;
+        }}
+      />
+
+      <DynamicBitmapText
+        x={config.width - 155}
+        y={config.height - 70}
+        font="txt_bitmap"
+        text={options.txtAutoSpin}
+        fontSize={38}
+        ref={(gameObject) => {
+          txtAutoSpin = gameObject;
+          gameObject.setDisplayCallback(scene.textCallback);
+        }}
+      />
+
+      <Container visible={false} ref={containerRef}>
+        <Sprite
+          x={config.width / 2}
+          y={config.height / 2}
+          texture="autoSpin"
+          frame="bg_auto.png"
+        />
+
+        <Sprite
+          x={config.width / 2 - 100}
+          y={config.height / 2 - 100}
+          texture="autoSpin"
+          frame="btn_plus_bet.png"
+          ref={(gameObject) => (btnPlus = gameObject)}
+          onPointerDown={() => {
+            scene.audioPlayButton();
+
+            if (options.txtAuto < 100) {
+              btnMinus.clearTint();
+              btnPlus.setScale(0.9);
+              options.txtAuto += 5;
+
+              if (options.txtAuto < 100) {
+                txtAuto.x = 620;
+              } else {
+                txtAuto.x = 610;
+              }
+
+              txtAuto.setText(String(options.txtAuto));
+            }
+
+            if (options.txtAuto === 100) {
+              btnPlus.setTint(0xa09d9d);
+            }
+          }}
+          onPointerUp={() => btnPlus.setScale(1)}
+        />
+
+        <Sprite
+          x={config.width / 2 + 100}
+          y={config.height / 2 - 100}
+          texture="autoSpin"
+          frame="btn_minus_bet.png"
+          ref={(gameObject) => (btnMinus = gameObject)}
+          onPointerDown={() => {
+            scene.audioPlayButton();
+
+            if (options.txtAuto > 5) {
+              btnPlus.clearTint();
+              btnMinus.setScale(0.9);
+              options.txtAuto -= 5;
+              setXAuto();
+              txtAuto.setText(String(options.txtAuto));
+            }
+
+            if (options.txtAuto === 5) {
+              btnMinus.setTint(0xa09d9d);
+            }
+          }}
+          onPointerUp={() => btnMinus.setScale(1)}
+        />
+
+        <Sprite
+          x={config.width / 2}
+          y={config.height / 2 + 100}
+          texture="bgButtons"
+          frame="btn_play.png"
+          scale={0.9}
+          onPointerDown={() => {
+            scene.audioPlayButton();
+            toggleModal();
+
+            if (scene.valueMoney >= options.coin * options.line) {
+              speedPlay(options.txtAuto);
+            } else {
+              setTextAuto();
+            }
+          }}
+        />
+
+        <Sprite
+          x={config.width - 30}
+          y={config.height - 635}
+          texture="bgButtons"
+          frame="btn_exit.png"
+          scale={0.9}
+          onPointerDown={() => {
+            scene.audioPlayButton();
+            toggleModal();
+            setTextAuto();
+          }}
+        />
+
+        <Sprite
+          x={config.width / 2}
+          y={config.height / 2 - 100}
+          texture="bgButtons"
+          frame="btn-spin.png"
+        />
+
+        <Text
+          x={config.width / 2 - 5}
+          y={config.height / 2 - 115}
+          text={String(options.txtAuto)}
+          style={{ fontSize: '35px', color: '#fff', fontFamily: 'PT Serif' }}
+          ref={(gameObject) => (txtAuto = gameObject)}
+        />
+      </Container>
+    </>
+  );
 }

@@ -11,7 +11,8 @@ export function Credit() {
 
   function toggleModal() {
     scene.audioPlayButton();
-    containerRef.current?.setToTop().setVisible(!containerRef.current?.visible);
+    const container = containerRef.current!;
+    container.setToTop().setVisible(!container.visible);
   }
 
   return (
