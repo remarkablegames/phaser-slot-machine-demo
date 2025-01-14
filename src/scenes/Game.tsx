@@ -15,6 +15,7 @@ import {
   Tween,
 } from '../components';
 import config from '../config';
+import { LocalStorageKey } from '../constants';
 import options from '../options';
 
 const CONTAINERS_COUNT = 5;
@@ -42,7 +43,9 @@ export class Game extends Phaser.Scene {
   autoSpinTweens!: Tween;
   txtMoney!: Phaser.GameObjects.Text;
   txtWin!: Phaser.GameObjects.Text;
-  valueMoney = Number(localStorage.getItem('money') ?? options.money);
+  valueMoney = Number(
+    localStorage.getItem(LocalStorageKey.Money) ?? options.money,
+  );
 
   constructor() {
     super({ key: 'Game' });
@@ -101,7 +104,9 @@ export class Game extends Phaser.Scene {
           x={config.width - 310}
           y={config.height - 675}
           texture="sound"
-          frame={localStorage.getItem('music') ?? 'btn_music_off.png'}
+          frame={
+            localStorage.getItem(LocalStorageKey.Music) ?? 'btn_music_off.png'
+          }
           scale={0.6}
           ref={(gameObject) => {
             this.btnMusic = gameObject;
@@ -117,7 +122,9 @@ export class Game extends Phaser.Scene {
           x={config.width - 390}
           y={config.height - 675}
           texture="sound"
-          frame={localStorage.getItem('sound') ?? 'btn_sound_off.png'}
+          frame={
+            localStorage.getItem(LocalStorageKey.Sound) ?? 'btn_sound_off.png'
+          }
           scale={0.6}
           ref={(gameObject) => {
             this.btnSound = gameObject;
@@ -162,13 +169,7 @@ export class Game extends Phaser.Scene {
         this.audio.musicDefault.play();
       }
 
-      if (localStorage.getItem('musics')) {
-        localStorage.removeItem('musics');
-        localStorage.setItem('music', this.audioMusicName);
-      } else {
-        localStorage.setItem('music', this.audioMusicName);
-      }
-
+      localStorage.setItem(LocalStorageKey.Music, this.audioMusicName);
       this.btnMusic.setTexture('sound', this.audioMusicName);
     }
   }
@@ -182,13 +183,7 @@ export class Game extends Phaser.Scene {
         this.audio.audioButton.play();
       }
 
-      if (localStorage.getItem('sounds')) {
-        localStorage.removeItem('sounds');
-        localStorage.setItem('sound', this.audioSoundName);
-      } else {
-        localStorage.setItem('sound', this.audioSoundName);
-      }
-
+      localStorage.setItem(LocalStorageKey.Sound, this.audioSoundName);
       this.btnSound.setTexture('sound', this.audioSoundName);
     }
   }
