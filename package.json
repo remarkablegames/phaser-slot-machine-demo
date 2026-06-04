@@ -22,7 +22,7 @@
     "@eslint/compat": "2.1.0",
     "@eslint/eslintrc": "3.3.5",
     "@eslint/js": "10.0.1",
-    "@types/react": "19.2.15",
+    "@types/react": "19.2.16",
     "@typescript-eslint/eslint-plugin": "8.60.1",
     "@typescript-eslint/parser": "8.60.1",
     "eslint": "10.4.0",
