@@ -1,0 +1,83 @@
+{
+	"textures": [
+		{
+			"image": "auto.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1350,
+				"h": 722
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "bg_auto.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 1280,
+						"h": 720
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1280,
+						"h": 720
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 1280,
+						"h": 720
+					}
+				},
+				{
+					"filename": "btn_minus_bet.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 66,
+						"h": 66
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 66,
+						"h": 66
+					},
+					"frame": {
+						"x": 1283,
+						"y": 1,
+						"w": 66,
+						"h": 66
+					}
+				},
+				{
+					"filename": "btn_plus_bet.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 66,
+						"h": 66
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 66,
+						"h": 66
+					},
+					"frame": {
+						"x": 1283,
+						"y": 69,
+						"w": 66,
+						"h": 66
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:741d60f7ca225b87b0f27a244a46fad0:454407160a62f14c0a93cd10aecd5f58:a92b2d7241193f539a80af9d0b32ceda$"
+	}
+}
